@@ -313,3 +313,19 @@ a{
 .component-link:hover{
   text-decoration: underline;
 }
+
+#user-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.playlist-search-btn{
+  background-color: white;
+  border: 1px solid #a74de6;
+  padding: 5px 10px;
+}
+
+.playlist-search-btn:hover{
+  color: white;
+  background-color: #a74de6;
+}

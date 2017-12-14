@@ -10,12 +10,14 @@ import Footer from './Footer.jsx'
 import history from '../history.js'
 import {fetchUsers} from '../reducers/users.js'
 import store from '../store.jsx'
+import { retrieveLoggedInUser } from '../reducers/auth'
 
 export default class Main extends Component {
-
-  componentDidMount(){
+  componentDidMount() {
     const usersThunk = fetchUsers()
+    const activeUser = retrieveLoggedInUser()
     store.dispatch(usersThunk)
+    store.dispatch(activeUser)
   }
 
   render() {

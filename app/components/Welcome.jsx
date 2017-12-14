@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import {render} from 'react-dom'
 import WelcomeVideo from './WelcomeVideo.jsx'
+import { connect } from 'react-redux'
+import history from '../history.js'
 
 function Welcome(props) {
+  const {currentUser} = props
+
+  if(currentUser) history.push(`/users/${currentUser.id}`)
+
   return (
     <div id="welcome-page">
       <WelcomeVideo />
@@ -56,4 +62,12 @@ function Welcome(props) {
   )
 }
 
-export default Welcome;
+/* -----------------    CONTAINER     ------------------ */
+
+const mapState = ({ currentUser }, ownProps) => {
+  return {
+    currentUser
+  }
+}
+
+export default connect(mapState)(Welcome)

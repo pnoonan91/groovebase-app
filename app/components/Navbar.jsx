@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import {render} from 'react-dom'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import history from '../history.js'
+import {logout as logOutUser} from '../reducers/auth.js'
 
 function Navbar(props) {
-  const {currentUser} = props
+  const {currentUser, logout} = props
 
   const loginNavBar = currentUser
   return (
@@ -18,6 +20,7 @@ function Navbar(props) {
         <Link to="#"><h2 className="nav-link-a">Shows</h2></Link>
         <Link to="#"><h2 className="nav-link-a">Songs</h2></Link>
         <Link to="#"><h2 className="nav-link-a">Venues</h2></Link>
+        <Link to="#" onClick={props.logout}><h2 className="nav-link-a">Log Out</h2></Link>
       </div>
     </div>
   :
@@ -42,4 +45,10 @@ const mapState = ({ currentUser }, ownProps) => {
   }
 }
 
-export default connect(mapState)(Navbar)
+const mapDispatch = dispatch => ({
+  logout: () => {
+    dispatch(logOutUser())
+  }
+})
+
+export default connect(mapState, mapDispatch)(Navbar)

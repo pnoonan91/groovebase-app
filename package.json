@@ -30,6 +30,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "request": "^2.83.0",
     "sequelize": "^4.28.1"
   },
   "devDependencies": {

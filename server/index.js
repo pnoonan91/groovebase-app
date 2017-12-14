@@ -28,6 +28,7 @@ app.use(session({
   saveUninitialized: false
 }))
 
+/* ---------- INITIALIZE PASSPORT ---------- */
 app.use(passport.initialize())
 
 app.use(passport.session())

@@ -4,6 +4,7 @@ import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 import Navbar from './Navbar.jsx'
 import Welcome from './Welcome.jsx'
 import SignUp from './SignUp.jsx'
+import LoginPage from './Login.jsx'
 import Footer from './Footer.jsx'
 
 export default class Main extends Component {
@@ -16,7 +17,8 @@ export default class Main extends Component {
           </div>
             <Switch>
               <Route exact path="/" component={Welcome} />
-              <Route path="/signup" component={SignUp} />
+              <Route exact path="/signup" component={SignUp} />
+              <Route exact path="/login" component={LoginPage} />
             </Switch>
             <Footer />
         </div>

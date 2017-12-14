@@ -248,6 +248,12 @@ a{
   width: 425px;
 }
 
+#log-in-container{
+  display: flex;
+  flex-direction: column;
+  width: 425px;
+}
+
 #name-inputs{
   display: flex;
   justify-content: space-between;
@@ -269,7 +275,7 @@ a{
   width: 100%;
 }
 
-#create-account-btn{
+.access-button{
   font-size: 1rem;
   border: 1px solid #a74de6;
   margin-top: 5px;
@@ -279,7 +285,7 @@ a{
   color: #a74de6;
 }
 
-#create-account-btn:hover{
+.access-button:hover{
   background-color: #a74de6;
   color: white;
 }
@@ -291,4 +297,14 @@ a{
 
 .purple-text{
   color: #a74de6;
+}
+
+.component-link{
+  font-family: 'Open Sans', sans-serif;
+  color: #a74de6;
+  text-decoration: none;
+}
+
+.component-link:hover{
+  text-decoration: underline;
 }

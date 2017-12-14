@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {render} from 'react-dom'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import { signupAndGoToUser } from '../reducers/auth'
 import { connect } from 'react-redux'
 
@@ -20,8 +19,6 @@ class SignUp extends Component {
       password: event.target.password.value
     }
 
-    console.log('new user req.body: ', credentials)
-
     this.props.signup(credentials)
   }
 
@@ -37,18 +34,18 @@ class SignUp extends Component {
               <input className="signup-input name-input" name="firstName" placeholder="First name" />
               <input className="signup-input name-input" name="lastName" placeholder="Last name" />
             </div>
-            <div id="email-input">
+            <div className="email-input">
               <input className="signup-input full-width-input" name="email" placeholder="Email address" />
             </div>
-            <div id="password-input">
+            <div className="password-input">
               <input type="password" className="signup-input full-width-input" name="password" placeholder="New password" />
             </div>
             <div>
-              <button id="create-account-btn">{message}</button>
+              <button className="access-button">{message}</button>
             </div>
           </div>
         </form>
-        <p>Already have an account? <Link to="/login">Log-in here.</Link></p>
+        <p>Already have an account? <Link className="component-link" to="/login">Log-in here.</Link></p>
       </div>
     )
   }

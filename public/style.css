@@ -1,0 +1,294 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+#nav-bar{
+  font-family: 'Comfortaa', cursive;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  align-items: center;
+}
+
+#nav-links{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-link-a{
+  padding-left: 1rem;
+}
+
+#social-icons{
+  display: flex;
+  justify-content: space-around;
+  margin-left: 35%;
+  margin-right: 35%;
+  margin-top: 2rem;
+}
+
+.social-icon-image{
+  height: 25pt;
+  width: 25pt;
+  margin-right: 8px;
+}
+
+#nav-bar-container{
+  background-image: url("/images/nav-background.jpg");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-attachment: relative;
+  border-bottom: 8px solid #a74de6;
+  background-size: 100%;
+  background-position-y: 10%;
+}
+
+.page-content{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+#welcome-video-container {
+  width: 100%;
+  height: 35%;
+  position: relative;
+  overflow: hidden;
+}
+
+#videoBlock{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#video-logo{
+  width: 100%;
+  height:100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#video-logo-text{
+  font-family: 'Comfortaa', cursive;
+  font-size: 6rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+#video-logo-caption{
+  font-size: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.header-text{
+  font-family: 'Comfortaa', cursive;
+  margin-bottom: 0;
+}
+
+.join-header{
+  font-family: 'Comfortaa', cursive;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.join-text{
+  text-align: center;
+  color: white;
+  margin: 0;
+  padding-bottom: 6px;
+  font-size: 1.25rem;
+}
+
+#join-button{
+  background-color: #a74de6;
+  border: 0.5px solid white;
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.25rem;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+#join-button:hover{
+  background-color: white;
+  color: #a74de6
+}
+
+.center-bttn{
+  text-align: center;
+}
+
+.caption-text{
+  font-size: .75rem;
+}
+
+.padding-container{
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#welcome-info{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between
+}
+
+.welcome-widget{
+  text-align: center;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.welcome-image{
+  width: 4rem;
+  height: 4rem;
+  align-self: center;
+}
+
+.purple-background{
+  background-color: #a74de6;
+  padding-bottom: 3rem;
+}
+
+#memories{
+  border: 8px solid #a74de6;
+  flex-grow: 2;
+  margin-left: 2rem;
+  background-image: url("/images/mem-background.jpg");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-attachment: absolute;
+  background-size: 100%;
+  background-position-y: 10%;
+  text-align: center;
+}
+
+.memory-header{
+  font-family: 'Comfortaa', cursive;
+  color: #a74de6;
+  margin: 0;
+  padding: 1rem;
+}
+
+#memory-white-container{
+  margin: 1rem;
+  text-align: center;
+  background-color: #ffffffb8;
+  display: flex;
+  flex-direction: column;
+}
+
+#current-jams{
+  display: flex;
+}
+
+.play-list-header{
+  margin: 0;
+  padding-bottom: 1rem;
+  color: #a74de6;
+}
+
+#footer-container{
+ padding-top: 1.5rem;
+}
+
+.footer-logo{
+  font-family: 'Comfortaa', cursive;
+  margin-bottom: 0;
+  margin-top: .25rem;
+  color: white;
+  text-align: center;
+}
+
+#footer-nav{
+  text-align: center;
+  color: white;
+}
+
+.footer{
+  background-color: #a74de6;
+  padding-bottom: .25rem;
+}
+
+#sign-up-container{
+  display: flex;
+  flex-direction: column;
+  width: 425px;
+}
+
+#name-inputs{
+  display: flex;
+  justify-content: space-between;
+}
+
+.signup-input{
+  border: 1px solid lightgray;
+  font-size: 1.5rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.name-input{
+  width: 48%;
+}
+
+.full-width-input{
+  width: 100%;
+}
+
+#create-account-btn{
+  font-size: 1rem;
+  border: 1px solid #a74de6;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  background-color: white;
+  color: #a74de6;
+}
+
+#create-account-btn:hover{
+  background-color: #a74de6;
+  color: white;
+}
+
+.sign-up-page{
+  background-color: #fcf7ff;
+  height: 85vh;
+}
+
+.purple-text{
+  color: #a74de6;
+}

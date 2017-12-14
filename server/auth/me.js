@@ -1,5 +1,10 @@
 const router = require('express').Router()
-const User = require('../db/models/users')
+const User = require('../db/models/users.js')
+
+//check currently-authenticated user
+router.get('/', (req, res, next) => {
+  res.send(req.user)
+})
 
 //sign-up
 router.post('/signup', (req, res, next) => {
@@ -38,14 +43,9 @@ router.post('/login', (req, res, next) => {
 })
 
 //log-out
-router.post('/logout', function(req, res, next) {
+router.delete('/', function(req, res, next) {
   req.logout()
   res.sendStatus(200)
-})
-
-//get-user
-router.get('/me', function(req, res, next) {
-  res.json(req.user)
 })
 
 module.exports = router

@@ -1,5 +1,4 @@
-function dummyReducer(state={}, action) {
-  return state
-}
+import {combineReducers} from 'redux'
+import currentUser from './auth'
 
-export default dummyReducer
+export default combineReducers({currentUser})

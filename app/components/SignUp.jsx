@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {render} from 'react-dom'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { signupAndGoToUser } from '../reducers/auth'
+import { connect } from 'react-redux'
 
 class SignUp extends Component {
   constructor(props) {
@@ -20,20 +22,11 @@ class SignUp extends Component {
 
     console.log('new user req.body: ', credentials)
 
-    axios.post('/auth/me/signup', {
-      firstName: credentials.firstName,
-      lastName: credentials.lastName,
-      email: credentials.email,
-      password: credentials.email
-    })
-      .then(res => res.data)
-      .then(user => {
-        console.log('user created')
-        document.getElementById('new-user-signup').reset()
-      })
+    this.props.signup(credentials)
   }
 
   render() {
+    const { message } = this.props
     return (
       <div className="padding-container sign-up-page">
         <h1 className="header-text purple-text">Create a new account!</h1>
@@ -51,17 +44,20 @@ class SignUp extends Component {
               <input type="password" className="signup-input full-width-input" name="password" placeholder="New password" />
             </div>
             <div>
-              <button id="create-account-btn">Create a Free Account!</button>
+              <button id="create-account-btn">{message}</button>
             </div>
           </div>
         </form>
+        <p>Already have an account? <Link to="/login">Log-in here.</Link></p>
       </div>
     )
   }
 }
 
-function submitHandler(event) {
-  event.preventDefault()
-}
+/* -----------------    CONTAINER     ------------------ */
 
-export default SignUp;
+const mapState = () => ({message: 'Create a Free Account!'})
+
+const mapDispatch = { signup: signupAndGoToUser }
+
+export default connect(mapState, mapDispatch)(SignUp)

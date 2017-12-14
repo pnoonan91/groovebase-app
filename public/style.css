@@ -295,6 +295,11 @@ a{
   height: 85vh;
 }
 
+.user-page{
+  background-color: #fcf7ff;
+  height: 85vh;
+}
+
 .purple-text{
   color: #a74de6;
 }

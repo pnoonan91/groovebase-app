@@ -1,16 +1,26 @@
 import React, { Component } from 'react'
 import {render} from 'react-dom'
-import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import { Router, Route, Switch, Redirect} from 'react-router-dom'
 import Navbar from './Navbar.jsx'
 import Welcome from './Welcome.jsx'
 import SignUp from './SignUp.jsx'
 import LoginPage from './Login.jsx'
+import UserPage from './UserPage.jsx'
 import Footer from './Footer.jsx'
+import history from '../history.js'
+import {fetchUsers} from '../reducers/users.js'
+import store from '../store.jsx'
 
 export default class Main extends Component {
+
+  componentDidMount(){
+    const usersThunk = fetchUsers()
+    store.dispatch(usersThunk)
+  }
+
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <div id="main">
           <div id="nav-bar-container">
             <Navbar />
@@ -19,6 +29,7 @@ export default class Main extends Component {
               <Route exact path="/" component={Welcome} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/users/:userId" component={UserPage} />
             </Switch>
             <Footer />
         </div>

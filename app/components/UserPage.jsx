@@ -14,22 +14,18 @@ class UserPage extends Component {
 
   playlistSearch(event) {
     event.preventDefault()
-    console.log('button clicked')
     var searchResult
-    var setlist = "setlist"
 
     axios.post('/api/search/setlist', {
-      artistName: 'Dave Matthews',
-      cityName: '',
-      stateCode: '',
-      venueName: '',
-      date: '',
-      year: '2011'
+      artistName: event.target.artist.value,
+      year: event.target.year.value,
+      cityName: event.target.city.value,
+      stateCode: event.target.state.value
     })
     .then((res) => res.data)
     .then((setlist) => {
       searchResult = JSON.parse(setlist)
-      console.log(typeof searchResult)
+      console.log(console.log(searchResult))
     })
   }
 
@@ -51,11 +47,9 @@ class UserPage extends Component {
         <div id="playlist-search-container">
           <form id="playlist-search-form" onSubmit={this.playlistSearch}>
             <input className="signup-input" name="artist" placeholder="Artist or Group" />
-            <input className="signup-input" name="city" placeholder="City" />
-            <input className="signup-input" name="state" placeholder="State Code" />
-            <input className="signup-input" name="venue" placeholder="Venue Name" />
-            <input className="signup-input" name="date" placeholder="Date" />
             <input className="signup-input" name="year" placeholder="Year" />
+            <input className="signup-input" name="city" placeholder="City" />
+            <input className="signup-input" name="state" placeholder="State" />
             <button className="access-button">Search</button>
           </form>
         </div>

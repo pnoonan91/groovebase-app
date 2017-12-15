@@ -6,15 +6,10 @@ var request = require('request-promise')
 router.post('/setlist', function(req, res, next){
   console.log('BODY REQ: ', req.body)
   var results
+
   var options = { method: 'GET',
   url: 'https://api.setlist.fm/rest/1.0/search/setlists',
-  qs:
-   { artistName: 'Florence Machine',
-     cityName: 'Tinley Park',
-     stateCode: '',
-     venueName: '',
-     date: '',
-     year: '2016' },
+  qs: req.body,
   headers:
    { 'postman-token': 'a7fc1564-6ce9-41a9-6dad-3268bd115b62',
      'cache-control': 'no-cache',

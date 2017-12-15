@@ -14,38 +14,23 @@ class UserPage extends Component {
 
   playlistSearch(event) {
     event.preventDefault()
-    // const headerConfig = {
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'x-api-key': 'c5653fc6-cf2a-4988-a6d8-301648012d9c'
-    //   }
-    // }
-    // const search = 'https://api.setlist.fm/rest/1.0/search/setlists?artistName='+event.target.artist.value+'&cityName='+event.target.city.value+'&stateCode='+event.target.state.value+'&venueName='+event.target.venue.value+'&date='+event.target.date.value+'&year='+event.target.year.value
+    console.log('button clicked')
+    var searchResult
+    var setlist = "setlist"
 
-
-
-    var options = { method: 'GET',
-      url: 'https://api.setlist.fm/rest/1.0/search/setlists',
-      qs:
-       { artistName: 'Dave Matthews',
-         cityName: '',
-         stateCode: '',
-         venueName: '',
-         date: '',
-         year: '2009' },
-      headers:
-       { 'postman-token': 'ac8b2829-aebb-92e4-0674-ea38e0c243b1',
-         'cache-control': 'no-cache',
-         'x-api-key': 'c5653fc6-cf2a-4988-a6d8-301648012d9c',
-         accept: 'application/json' },
-      body: '{\n\t"firstName": "Alex",\n\t"lastName": "Noonan",\n\t"email": "alex.noonan@gmail.com",\n\t"password": "mizzou123"\n}' };
-
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-
-      console.log(body);
-    });
-
+    axios.post('/api/search/setlist', {
+      artistName: 'Dave Matthews',
+      cityName: '',
+      stateCode: '',
+      venueName: '',
+      date: '',
+      year: '2011'
+    })
+    .then((res) => res.data)
+    .then((setlist) => {
+      searchResult = JSON.parse(setlist)
+      console.log(typeof searchResult)
+    })
   }
 
   render() {

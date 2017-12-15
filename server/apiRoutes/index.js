@@ -1,5 +1,6 @@
 const router = require('express').Router()
 
+router.use('/search', require('./search'))
 router.use('/users', require('./users')) // matches all requests to /api/users/
 router.use('/shows', require('./shows')) // matches all requests to  /api/shows/
 router.use('/songs', require('./songs')) // matches all requests to  /api/songs/

@@ -354,3 +354,7 @@ a{
 .table-listing:hover{
   background-color: rgb(236, 236, 236)
 }
+
+.table-listing-item-center{
+  text-align: center;
+}

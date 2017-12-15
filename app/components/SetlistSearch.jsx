@@ -35,13 +35,13 @@ class SetlistSearch extends Component {
             <th className="table-header-cell">Location</th>
             <th className="table-header-cell">Add to Setlists</th>
           </tr>
-          {results.map(show => (
+          {results && results.map(show => (
             <tr className="table-listing" key={show.id}>
               <td className="table-listing-item">{show.eventDate}</td>
               <td className="table-listing-item">{show.artist.name}</td>
               <td className="table-listing-item">{show.venue.name}</td>
-              <td className="table-listing-item">{show.venue.city.name}</td>
-              <td className="table-listing-item">ADD!</td>
+              <td className="table-listing-item">{`${show.venue.city.name}, ${show.venue.city.stateCode}`}</td>
+              <td className="table-listing-item-center"><button className="access-button">+</button></td>
             </tr>
           ))}
         </table>

@@ -16,13 +16,18 @@ class UserPage extends Component {
   playlistSearch(event) {
     event.preventDefault()
 
-    let search = {
-      artistName: event.target.artist.value,
-      year: event.target.year.value,
-      cityName: event.target.city.value,
-      stateCode: event.target.state.value
-    }
+    let search = {}
+    let artistName = event.target.artist.value
+    let year = event.target.year.value
+    let cityName = event.target.city.value
+    let stateCode = event.target.state.value
 
+    if(artistName !== '') search.artistName = artistName
+    if(year !== '') search.year = year
+    if(cityName !== '') search.cityName = cityName
+    if(stateCode !== '') search.stateCode = stateCode
+
+    console.log('search object: ', search)
     this.props.searchSetlist(search)
   }
 

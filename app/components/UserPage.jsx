@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import axios from 'axios'
+import { setlistSearchResultsPage } from '../reducers/setlistSearch'
 
 
 class UserPage extends Component {
@@ -14,19 +15,15 @@ class UserPage extends Component {
 
   playlistSearch(event) {
     event.preventDefault()
-    var searchResult
 
-    axios.post('/api/search/setlist', {
+    let search = {
       artistName: event.target.artist.value,
       year: event.target.year.value,
       cityName: event.target.city.value,
       stateCode: event.target.state.value
-    })
-    .then((res) => res.data)
-    .then((setlist) => {
-      searchResult = JSON.parse(setlist)
-      console.log(console.log(searchResult))
-    })
+    }
+
+    this.props.searchSetlist(search)
   }
 
   render() {
@@ -68,6 +65,6 @@ const mapState = ({ users, currentUser }, ownProps) => {
   }
 }
 
-const mapDispatch = { }
+const mapDispatch = { searchSetlist: setlistSearchResultsPage }
 
 export default connect(mapState, mapDispatch)(UserPage)

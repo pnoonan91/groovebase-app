@@ -20,7 +20,7 @@ function Navbar(props) {
         <Link to="#"><h2 className="nav-link-a">Shows</h2></Link>
         <Link to="#"><h2 className="nav-link-a">Songs</h2></Link>
         <Link to="#"><h2 className="nav-link-a">Venues</h2></Link>
-        <Link to="#" onClick={props.logout}><h2 className="nav-link-a">Log Out</h2></Link>
+        <Link to="/logout" onClick={props.logout}><h2 className="nav-link-a">Log Out</h2></Link>
       </div>
     </div>
   :

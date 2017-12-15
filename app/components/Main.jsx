@@ -11,13 +11,18 @@ import history from '../history.js'
 import {fetchUsers} from '../reducers/users.js'
 import store from '../store.jsx'
 import { retrieveLoggedInUser } from '../reducers/auth'
+import Logout from './Logout.jsx'
+import SetlistSearch from './SetlistSearch.jsx'
+import {getSearch} from '../reducers/setlistSearch.js'
 
 export default class Main extends Component {
   componentDidMount() {
     const usersThunk = fetchUsers()
     const activeUser = retrieveLoggedInUser()
+    const currentSearch = getSearch()
     store.dispatch(usersThunk)
     store.dispatch(activeUser)
+    store.dispatch(currentSearch)
   }
 
   render() {
@@ -32,6 +37,8 @@ export default class Main extends Component {
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/users/:userId" component={UserPage} />
+              <Route exact path="/logout" component={Logout} />
+              <Route exact path="/search/setlist" component={SetlistSearch} />
             </Switch>
             <Footer />
         </div>

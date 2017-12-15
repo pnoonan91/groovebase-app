@@ -297,7 +297,7 @@ a{
 
 .user-page{
   background-color: #fcf7ff;
-  height: 85vh;
+  min-height: 85vh;
 }
 
 .purple-text{
@@ -328,4 +328,29 @@ a{
 .playlist-search-btn:hover{
   color: white;
   background-color: #a74de6;
+}
+
+.table-results{
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border: 1px solid #d59bff;
+}
+
+.table-header-row{
+  text-align: left;
+  font-weight: bold;
+  background-color: #c883fd;
+  border-bottom: 1px solid #d59bff;
+  color: white;
+}
+
+.table-listing{
+  font-size: .75rem;
+  border-bottom: 1px solid #d59bff;
+  text-align: left
+}
+
+.table-listing:hover{
+  background-color: rgb(236, 236, 236)
 }

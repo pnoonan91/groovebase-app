@@ -73,6 +73,6 @@ export const retrieveLoggedInUser = () => dispatch => {
 export const logout = () => dispatch => {
   dispatch(remove())
   axios.delete('/auth/me/')
-  .then(() => {history.push('/')})
+  .then(() => {history.push('/logout')})
   .catch(err => console.error('logout unsuccessful', err))
 }

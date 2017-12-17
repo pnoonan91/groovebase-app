@@ -37,7 +37,7 @@ class SetlistSearch extends Component {
           </tr>
           {results && results.map(show => (
             <tr className="table-listing" key={show.id}>
-              <td className="table-listing-item">{show.eventDate}</td>
+              <td className="table-listing-item"><Link className="purple-text" to={`/setlist/${show.id}`}>{show.eventDate}</Link></td>
               <td className="table-listing-item">{show.artist.name}</td>
               <td className="table-listing-item">{show.venue.name}</td>
               <td className="table-listing-item">{`${show.venue.city.name}, ${show.venue.city.stateCode}`}</td>

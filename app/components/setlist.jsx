@@ -8,6 +8,10 @@ import { setlistSearch } from '../reducers/setlist.js'
 import store from '../store.jsx'
 
 class Setlist extends Component {
+  constructor(props){
+    super(props)
+    this.setlistSongMap = this.setlistSongMap.bind(this)
+  }
   componentDidMount() {
     const {setlistId} = this.props
 
@@ -17,17 +21,36 @@ class Setlist extends Component {
     store.dispatch(currentSetlist)
   }
 
+  setlistSongMap(setlistArr) {
+    var returnArr = []
+    for(var i = 0; i<setlistArr.length; i++){
+      if(!setlistArr.length){
+        return 'Setlist details not found :('
+      }
+      for(var j = 0; j<setlistArr[i].song.length; j++){
+          returnArr.push(setlistArr[i].song[j].name)
+      }
+    }
+    console.log(returnArr)
+    return returnArr
+  }
+
   render() {
     const {currentUser, setlist} = this.props
 
     return (
-      <div className="page-content">
+      <div className="padding-container sign-up-page">
         <h1 className="header-text purple-text">{setlist.artist && setlist.artist.name}</h1>
         <h4>{setlist.venue && setlist.venue.name + ' | ' + setlist.venue.city.name + ', ' + setlist.venue.city.stateCode + ' | ' + setlist.eventDate}</h4>
-        <table>
+        <table className="table-results">
           <tr className="table-header-row">
             <th className="table-header-cell">Setlist</th>
           </tr>
+          {setlist.artist && this.setlistSongMap(setlist.sets.set).map(song => (
+            <tr className="table-listing" key={song}>
+              <td className="table-listing-item">{song}</td>
+            </tr>
+          ))}
         </table>
       </div>
     )

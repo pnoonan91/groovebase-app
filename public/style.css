@@ -151,7 +151,7 @@ a{
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 }
 
 #welcome-info{
@@ -292,7 +292,7 @@ a{
 
 .sign-up-page{
   background-color: #fcf7ff;
-  height: 85vh;
+  min-height: 85vh;
 }
 
 .user-page{

@@ -7,12 +7,14 @@ const Artists = require('./artists')
 const Songs = require('./songs')
 const Venues = require('./venues')
 const Users = require('./users')
+const UserShows = require('./userShows.js')
 
 //ASSOCIATIONS
 Shows.belongsTo(Venues)
 Shows.hasOne(Artists)
 Shows.hasMany(Songs)
 Shows.hasMany(Users)
+Users.hasMany(UserShows)
 
 module.exports = {
   db,
@@ -20,5 +22,6 @@ module.exports = {
   Artists,
   Songs,
   Venues,
-  Users
+  Users,
+  UserShows
 }

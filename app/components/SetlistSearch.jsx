@@ -15,7 +15,20 @@ class SetlistSearch extends Component {
 
   saveSetlist(event) {
     event.preventDefault()
-    console.log('button clicked!')
+
+    let nodeString = event.target.id
+    let saveShow = JSON.parse(event.target.id)
+
+    axios.post('/api/shows/save', saveShow)
+    .then(res => res.data)
+    .then(setlist => {
+      if (setlist[1] === false) {
+        document.getElementById(nodeString).innerText="Already Exists"
+      } else {
+        document.getElementById(nodeString).innerText="Saved!"
+      }
+    })
+
   }
 
   render() {
@@ -41,7 +54,7 @@ class SetlistSearch extends Component {
               <td className="table-listing-item">{show.artist.name}</td>
               <td className="table-listing-item">{show.venue.name}</td>
               <td className="table-listing-item">{`${show.venue.city.name}, ${show.venue.city.stateCode}`}</td>
-              <td className="table-listing-item-center"><button className="access-button">+</button></td>
+              <td className="table-listing-item-center"><button className="access-button" id={`{"setlistId": "${show.id}", "Mbid": "${show.artist.mbid}", "venueId": "${show.venue.id}", "UserId": "${currentUser.id}"}`} onClick={this.saveSetlist}>+</button></td>
             </tr>
           ))}
         </table>

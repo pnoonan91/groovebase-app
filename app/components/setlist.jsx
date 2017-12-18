@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import axios from 'axios'
-import { setlistSearch } from '../reducers/setlist.js'
+import { setlistSearch, setCurrentSetlist } from '../reducers/setlist.js'
 import store from '../store.jsx'
 
 class Setlist extends Component {
@@ -21,17 +21,24 @@ class Setlist extends Component {
     store.dispatch(currentSetlist)
   }
 
+  componentWillUnmount() {
+    store.dispatch(setCurrentSetlist({}))
+  }
+
   setlistSongMap(setlistArr) {
     var returnArr = []
     for(var i = 0; i<setlistArr.length; i++){
       if(!setlistArr.length){
-        return 'Setlist details not found :('
+        return ['Setlist details not available :(']
       }
       for(var j = 0; j<setlistArr[i].song.length; j++){
           returnArr.push(setlistArr[i].song[j].name)
       }
     }
-    console.log(returnArr)
+
+    if(!returnArr.length){
+      return ['Setlist details not available :(']
+    }
     return returnArr
   }
 
@@ -46,7 +53,7 @@ class Setlist extends Component {
           <tr className="table-header-row">
             <th className="table-header-cell">Setlist</th>
           </tr>
-          {setlist.artist && this.setlistSongMap(setlist.sets.set).map(song => (
+          {setlist.sets && this.setlistSongMap(setlist.sets.set).map(song => (
             <tr className="table-listing" key={song}>
               <td className="table-listing-item">{song}</td>
             </tr>

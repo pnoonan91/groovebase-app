@@ -7,8 +7,8 @@ import history from '../history.js'
 
 export default function Navbar(props) {
   return (
-    <div className="padding-container">
-      <h2 className="header-text purple-text">Bitch, you logged out!</h2>
+    <div className="padding-container user-page">
+      <h1 className="header-text purple-text">Thanks for groovin' with us!</h1>
     </div>
   )
 }

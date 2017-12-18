@@ -6,7 +6,7 @@ const SET_CURRENT_SETLIST = 'SET_CURRENT_SETLIST'
 const GET_CURRENT_SETLIST = 'GET_CURRENT_SETLIST'
 
 /* --------------    ACTION CREATORS    ----------------- */
-const setCurrentSetlist = setlist => ({type: SET_CURRENT_SETLIST, setlist})
+export const setCurrentSetlist = setlist => ({type: SET_CURRENT_SETLIST, setlist})
 export const getCurrentSetlist = () => ({type: GET_CURRENT_SETLIST})
 
 /* ------------------    REDUCER    --------------------- */

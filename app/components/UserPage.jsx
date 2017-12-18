@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import axios from 'axios'
 import { setlistSearchResultsPage } from '../reducers/setlistSearch'
+import { toggleView } from '../helperfuncs.js'
 
 
 class UserPage extends Component {
@@ -31,6 +32,18 @@ class UserPage extends Component {
     this.props.searchSetlist(search)
   }
 
+  toggleView() {
+    var node = document.getElementById("playlist-search-container")
+    if (!node.style.display) {
+      node.style.display = "block"
+    }
+    else if (node.style.display === "none") {
+      node.style.display = "block"
+    } else {
+      node.style.display = "none"
+    }
+  }
+
   render() {
     const { user, currentUser } = this.props
     if(!user) return <div /> //the user id is invalid or data isn't loaded yet
@@ -41,19 +54,27 @@ class UserPage extends Component {
         <div id="user-header">
           <h1 className="header-text purple-text">Welcome to grooveBase, {user && user.firstName}!</h1>
           <div id="playlist-search">
-            <h3 className="purple-text playlist-search-btn">+Search for a Playlist</h3>
+            <h3 className="purple-text playlist-search-btn" onClick={this.toggleView}>+Search for a Setlist</h3>
           </div>
         </div>
 
         {/*Playlist search form - originally hidden*/}
         <div id="playlist-search-container">
           <form id="playlist-search-form" onSubmit={this.playlistSearch}>
-            <input className="signup-input" name="artist" placeholder="Artist or Group" />
-            <input className="signup-input" name="year" placeholder="Year" />
-            <input className="signup-input" name="city" placeholder="City" />
-            <input className="signup-input" name="state" placeholder="State" />
-            <button className="access-button">Search</button>
+            <div id="playlist-search-inputs">
+              <input className="signup-input" name="artist" placeholder="Artist or Group" />
+              <input className="signup-input" name="year" placeholder="Year" />
+              <input className="signup-input" name="city" placeholder="City" />
+              <input className="signup-input" name="state" placeholder="State" />
+            </div>
+            <div>
+              <button className="access-button">Search</button>
+            </div>
           </form>
+        </div>
+        <div id="user-landing-page">
+          <h3>Stats</h3>
+          <h3>Shows You've Attended</h3>
         </div>
       </div>
     )

@@ -264,6 +264,8 @@ a{
   font-size: 1.5rem;
   margin-top: 5px;
   margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   padding: 5px;
 }
 
@@ -357,4 +359,24 @@ a{
 
 .table-listing-item-center{
   text-align: center;
+}
+
+#playlist-search-container{
+  display: none;
+  border: 1px solid #a74de6;
+  background-color: rgb(238, 238, 238);
+  padding: 2rem;
+}
+
+#playlist-search-form{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#playlist-search-inputs{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
 }

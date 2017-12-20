@@ -15,6 +15,7 @@ import Logout from './Logout.jsx'
 import SetlistSearch from './SetlistSearch.jsx'
 import {getSearch} from '../reducers/setlistSearch.js'
 import Setlist from './setlist.jsx'
+import UserShows from './userShows.jsx'
 
 export default class Main extends Component {
   componentDidMount() {
@@ -41,6 +42,7 @@ export default class Main extends Component {
               <Route exact path="/logout" component={Logout} />
               <Route exact path="/search/setlist" component={SetlistSearch} />
               <Route exact path="/setlist/:setlistId" component={Setlist} />
+              <Route exact path="/user/setlists/:userId" component={UserShows} />
             </Switch>
             <Footer />
         </div>

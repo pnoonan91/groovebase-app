@@ -54,7 +54,8 @@ class SetlistSearch extends Component {
               <td className="table-listing-item">{show.artist.name}</td>
               <td className="table-listing-item">{show.venue.name}</td>
               <td className="table-listing-item">{`${show.venue.city.name}, ${show.venue.city.stateCode}`}</td>
-              <td className="table-listing-item-center"><button className="access-button" id={`{"setlistId": "${show.id}", "Mbid": "${show.artist.mbid}", "venueId": "${show.venue.id}", "UserId": "${currentUser.id}"}`} onClick={this.saveSetlist}>+</button></td>
+              <td className="table-listing-item-center"><button className="access-button" id={`{"setlistId": "${show.id}", "Mbid": "${show.artist.mbid}", "artistName": "${show.artist.name}", "venueId": "${show.venue.id}", "venueName": "${show.venue.name}", "city": "${show.venue.city.name}", "stateCode": "${show.venue.city.stateCode}", "eventDate": "${show.eventDate}"
+              , "UserId": "${currentUser.id}"}`} onClick={this.saveSetlist}>+</button></td>
             </tr>
           ))}
         </table>

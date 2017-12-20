@@ -380,3 +380,62 @@ a{
   justify-content: center;
   margin-bottom: 2rem;
 }
+
+#user-setlist-listing{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 920px;
+  margin: auto;
+}
+
+#user-setlist-listing:after {
+  content: "";
+  flex: auto;
+  justify-content: space-between;
+}
+
+.setlist-item{
+  background-color: white;
+  border: 1px solid lightgray;
+  width: 210px;
+  margin: 10px;
+  height: 170px;
+}
+
+.setlist-thumbnail{
+  height: 80px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 5px 0;
+  color: white;
+  text-shadow: 1px 1px 1px #000000;
+  background-image: url(/images/setlist-thumbnail.jpg);
+  background-position: bottom left;
+}
+
+.setlist-caption{
+  padding: 5px 1rem;
+  border-top: 1px solid lightgray;
+  font-size: .85rem;
+}
+
+.caption-header{
+  font-weight: bold;
+}
+
+.caption-location{
+  margin: 0;
+  font-size: .7rem;
+}
+
+.event-date{
+  margin: 10px 0;
+  font-size: .7rem;
+}
+
+.setlist-listing-header{
+  width: 950px;
+  margin: auto;
+}

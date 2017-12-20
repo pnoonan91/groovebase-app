@@ -14,7 +14,27 @@ var UsersShows = db.define('UsersShows', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  artistName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   venueId: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  venueName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  city: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  stateCode: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  eventDate: {
     type: Sequelize.STRING,
     allowNull: false
   }

@@ -18,7 +18,12 @@ router.post('/save', function(req, res, next) {
     where: {
       setlistId: req.body.setlistId,
       artistMbid: req.body.Mbid,
+      artistName: req.body.artistName,
       venueId: req.body.venueId,
+      venueName: req.body.venueName,
+      city: req.body.city,
+      stateCode: req.body.stateCode,
+      eventDate: req.body.eventDate,
       UserId: req.body.UserId
     }
   })

@@ -4,5 +4,6 @@ import users from './users'
 import setlistSearch from './setlistSearch'
 import setlist from './setlist'
 import userSetlists from './userSetlists'
+import userStats from './userStats'
 
-export default combineReducers({users, currentUser, setlistSearch, setlist, userSetlists})
+export default combineReducers({users, currentUser, setlistSearch, setlist, userSetlists, userStats})

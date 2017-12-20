@@ -2,6 +2,8 @@
 
 var router = require('express').Router()
 var request = require('request-promise')
+var UserShows = require('../db/models/userShows.js')
+var Sequelize = require('Sequelize')
 
 router.post('/setlist', function(req, res, next){
   var results
@@ -69,6 +71,18 @@ request(options, function (error, response, body) {
     console.log(artistName)
     res.json(artistName)
   })
+
+})
+
+router.get('/stats/:userId', function(req, res, next) {
+  let userStats = {}
+
+  UserShows.findAndCountAll({
+    where: {
+      UserId: req.params.userId
+    }
+  })
+  .then(results => console.log(results.count))
 
 })
 

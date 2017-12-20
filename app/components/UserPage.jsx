@@ -6,7 +6,8 @@ import _ from 'lodash'
 import axios from 'axios'
 import { setlistSearchResultsPage } from '../reducers/setlistSearch'
 import { toggleView } from '../helperfuncs.js'
-
+import userStats from '../reducers/userStats.js'
+import store from '../store.jsx'
 
 class UserPage extends Component {
   constructor(props){
@@ -52,10 +53,22 @@ class UserPage extends Component {
       <div className="padding-container user-page">
         {/*User profile header*/}
         <div id="user-header">
-          <h1 className="header-text purple-text">Welcome to grooveBase, {user && user.firstName}!</h1>
+          <h1 className="header-text purple-text no-margin">Welcome to grooveBase, {user && user.firstName}!</h1>
           <div id="playlist-search">
-            <h3 className="purple-text playlist-search-btn" onClick={this.toggleView}>+Search for a Setlist</h3>
+            <h3 className="purple-text playlist-search-btn no-margin" onClick={this.toggleView}>+Search for a Setlist</h3>
           </div>
+        </div>
+        <div id="user-info">
+          <div className="user-info-container">
+            <img className="user-info-icon" src="/profile-icons/idcard.png"/>{`${user.firstName} ${user.lastName}`}
+          </div>
+          <div className="user-info-container">
+            <img className="user-info-icon" src="/profile-icons/location.png"/>  {`Chicago, IL`}
+          </div>
+          <div className="user-info-container">
+            <img className="user-info-icon" src="/profile-icons/calendar.png"/>
+           {"Joined: December 20, 2017"}
+           </div>
         </div>
 
         {/*Playlist search form - originally hidden*/}
@@ -73,8 +86,15 @@ class UserPage extends Component {
           </form>
         </div>
         <div id="user-landing-page">
-          <h3>Stats</h3>
-          <h3>Shows You've Attended</h3>
+          <div id='user-landing-left-pane'>
+            <h4 className="header-text purple-text">Stats</h4>
+            <h4 className="header-text purple-text">Recent Shows</h4>
+          </div>
+          <div id="user-landing-right-pane">
+            <h4 className="header-text purple-text">Favorite Shows</h4>
+            <h4 className="header-text purple-text">Top Artists</h4>
+            <h4 className="header-text purple-text">Top Venues</h4>
+          </div>
         </div>
       </div>
     )
@@ -83,11 +103,12 @@ class UserPage extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ users, currentUser }, ownProps) => {
+const mapState = ({users, currentUser, userStats}, ownProps) => {
   const paramId = Number(ownProps.match.params.userId)
   return {
     user: _.find(users, user => user.id === paramId),
-    currentUser
+    currentUser,
+    userStats
   }
 }
 

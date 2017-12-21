@@ -469,3 +469,7 @@ a{
   padding-left: 1.5rem;
   border-left: 1px solid lightgray
 }
+
+.underline-hover:hover{
+  text-decoration: underline;
+}

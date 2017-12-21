@@ -75,14 +75,17 @@ request(options, function (error, response, body) {
 })
 
 router.get('/stats/:userId', function(req, res, next) {
-  let userStats = {}
+  let results = {
+    userShows: {}
+  }
 
   UserShows.findAndCountAll({
     where: {
       UserId: req.params.userId
     }
   })
-  .then(results => console.log(results.count))
+  .then(shows => results['userShows'] = shows)
+  .then(() => res.json(results))
 
 })
 

@@ -8,11 +8,23 @@ import { setlistSearchResultsPage } from '../reducers/setlistSearch'
 import { toggleView } from '../helperfuncs.js'
 import userStats from '../reducers/userStats.js'
 import store from '../store.jsx'
+import {setUserStats} from '../reducers/userStats.js'
 
 class UserPage extends Component {
   constructor(props){
     super(props)
     this.playlistSearch = this.playlistSearch.bind(this)
+    this.artistCount = this.artistCount.bind(this)
+    this.venueCount = this.venueCount.bind(this)
+  }
+
+  componentDidMount(){
+    const {paramId} = this.props
+    axios.get(`/api/search/stats/${paramId}`)
+    .then(res => res.data)
+    .then(setlists => {
+      store.dispatch(setUserStats(setlists.userShows))
+    })
   }
 
   playlistSearch(event) {
@@ -29,7 +41,6 @@ class UserPage extends Component {
     if(cityName !== '') search.cityName = cityName
     if(stateCode !== '') search.stateCode = stateCode
 
-    console.log('search object: ', search)
     this.props.searchSetlist(search)
   }
 
@@ -45,8 +56,32 @@ class UserPage extends Component {
     }
   }
 
+  artistCount(artistArr){
+    let count = 0
+    let artists = []
+    for(var i = 0; i<artistArr.length; i++){
+      if(artists.indexOf(artistArr[i].artistName) === -1){
+        artists.push(artistArr[i].artistName)
+        count++
+      }
+    }
+    return count
+  }
+
+  venueCount(venueArr){
+    let count = 0
+    let venues = []
+    for(var i = 0; i<venueArr.length; i++){
+      if(venues.indexOf(venueArr[i].venueName) === -1){
+        venues.push(venueArr[i].venueName)
+        count++
+      }
+    }
+    return count
+  }
+
   render() {
-    const { user, currentUser } = this.props
+    const { user, currentUser, userStats } = this.props
     if(!user) return <div /> //the user id is invalid or data isn't loaded yet
     const authorized = currentUser && (currentUser.id === user.id)
     return (
@@ -88,6 +123,7 @@ class UserPage extends Component {
         <div id="user-landing-page">
           <div id='user-landing-left-pane'>
             <h4 className="header-text purple-text">Stats</h4>
+            <p>You've seen <Link to={`/user/setlists/${currentUser.id && currentUser.id}`} className="purple-text underline-hover">{userStats.count} shows</Link> consisting of <Link to="#" className="purple-text underline-hover">{userStats.rows && this.artistCount(userStats.rows)} artists</Link> at <Link to="#" className="purple-text underline-hover">{userStats.rows && this.venueCount(userStats.rows)} venues</Link>.</p>
             <h4 className="header-text purple-text">Recent Shows</h4>
           </div>
           <div id="user-landing-right-pane">
@@ -108,10 +144,13 @@ const mapState = ({users, currentUser, userStats}, ownProps) => {
   return {
     user: _.find(users, user => user.id === paramId),
     currentUser,
-    userStats
+    userStats,
+    paramId
   }
 }
 
-const mapDispatch = { searchSetlist: setlistSearchResultsPage }
+const mapDispatch = {
+  searchSetlist: setlistSearchResultsPage
+}
 
 export default connect(mapState, mapDispatch)(UserPage)

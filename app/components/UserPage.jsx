@@ -133,7 +133,7 @@ class UserPage extends Component {
         <div id="user-landing-page">
           <div id='user-landing-left-pane'>
             <h2 className="header-text purple-text">Stats</h2>
-            <p>You've seen <Link to={`/user/setlists/${currentUser.id && currentUser.id}`} className="purple-text underline-hover">{userStats.count} shows</Link> consisting of <Link to="#" className="purple-text underline-hover">{userStats.rows && this.artistCount(userStats.rows)} artists</Link> at <Link to="#" className="purple-text underline-hover">{userStats.rows && this.venueCount(userStats.rows)} venues</Link>.</p>
+            <p>You've seen <Link to={`/user/setlists/${currentUser.id && currentUser.id}`} className="purple-text underline-hover">{userStats.count} shows</Link> consisting of <Link to={`/user/artists/${currentUser.id}`} className="purple-text underline-hover">{userStats.rows && this.artistCount(userStats.rows)} artists</Link> at <Link to="#" className="purple-text underline-hover">{userStats.rows && this.venueCount(userStats.rows)} venues</Link>.</p>
             <h2 className="header-text purple-text">Recently Added Shows</h2>
             <table className="table-results">
               {userStats.rows && this.recentShows(userStats.rows).map(show => (
@@ -157,7 +157,7 @@ class UserPage extends Component {
               ))}
               <tr lassName="table-listing">
                 <td colSpan="4" className="table-listing-item user-page-listing">
-                  <Link to={`/user/setlists/${currentUser.id}`} className="purple-text underline-hover no-margin">See all of your tracked shows!</Link>
+                  <Link to={`/user/setlists/${currentUser.id}`} className="purple-text underline-hover no-margin">See all of your tracked shows! <img src="/new-setlist-icon/gotoartist.png" className="small-icon"/></Link>
                 </td>
               </tr>
             </table>

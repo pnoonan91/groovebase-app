@@ -339,6 +339,15 @@ a{
   border: 1px solid #d59bff;
 }
 
+.table-results-artist-page{
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-top: 1px solid #d59bff;
+  border-left: 1px solid #d59bff;
+  border-right: 1px solid #d59bff;
+}
+
 .table-header-row{
   text-align: left;
   font-weight: bold;
@@ -353,8 +362,13 @@ a{
   text-align: left
 }
 
+.table-listing-artist-page{
+  font-size: .75rem;
+  text-align: left;
+}
+
 .table-listing:hover{
-  background-color: rgb(236, 236, 236)
+  background-color: rgb(252, 249, 249)
 }
 
 .table-listing-item-center{
@@ -485,4 +499,44 @@ a{
 
 .user-page-favorite-icon{
   width: 30px;
+}
+
+.artist-listing{
+  padding: 5px 15px;
+}
+
+.hide-artist-details{
+  display: none;
+}
+
+.artist-details{
+  border-top: 1px solid #d59bff;
+  font-size: .75rem;
+  background-color: rgb(243, 243, 243);
+  padding: 1.5rem;
+}
+
+#artist-details-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.artist-details-item{
+  background-color: white;
+  border: 1px solid lightgray;
+  width: 180px;
+  padding: 10px;
+  margin: 5px;
+}
+
+.black-text{
+  color: black
+}
+
+.artist-detail-header{
+  font-weight: bold;
+}
+
+.small-icon{
+  width: 15px;
 }

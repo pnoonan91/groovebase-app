@@ -16,6 +16,7 @@ class UserPage extends Component {
     this.playlistSearch = this.playlistSearch.bind(this)
     this.artistCount = this.artistCount.bind(this)
     this.venueCount = this.venueCount.bind(this)
+    this.recentShows = this.recentShows.bind(this)
   }
 
   componentDidMount(){
@@ -80,6 +81,15 @@ class UserPage extends Component {
     return count
   }
 
+  recentShows(showArr){
+    if(showArr.length<10){
+      return showArr
+    }
+    else {
+      return showArr.slice(-10)
+    }
+  }
+
   render() {
     const { user, currentUser, userStats } = this.props
     if(!user) return <div /> //the user id is invalid or data isn't loaded yet
@@ -122,9 +132,35 @@ class UserPage extends Component {
         </div>
         <div id="user-landing-page">
           <div id='user-landing-left-pane'>
-            <h4 className="header-text purple-text">Stats</h4>
+            <h2 className="header-text purple-text">Stats</h2>
             <p>You've seen <Link to={`/user/setlists/${currentUser.id && currentUser.id}`} className="purple-text underline-hover">{userStats.count} shows</Link> consisting of <Link to="#" className="purple-text underline-hover">{userStats.rows && this.artistCount(userStats.rows)} artists</Link> at <Link to="#" className="purple-text underline-hover">{userStats.rows && this.venueCount(userStats.rows)} venues</Link>.</p>
-            <h4 className="header-text purple-text">Recent Shows</h4>
+            <h2 className="header-text purple-text">Recently Added Shows</h2>
+            <table className="table-results">
+              {userStats.rows && this.recentShows(userStats.rows).map(show => (
+                <tr className="table-listing" key={show.id}>
+                  <td className="table-listing-item user-page-listing">
+                    <Link to={`/setlist/${show.setlistId}`}>
+                    <h3 className="purple-text no-margin underline-hover">{show.artistName}</h3>
+                    </Link>
+                  </td>
+                  <td className="table-listing-item user-page-listing">
+                    <p className="no-margin">{show.eventDate}</p>
+                  </td>
+                  <td className="table-listing-item user-page-listing">
+                    <p className="no-margin">{show.venueName}</p>
+                    <p className="no-margin">{`${show.city}, ${show.stateCode}`}</p>
+                  </td>
+                  <td className="table-listing" key={show.id}>
+                    <img src="/favorite-icons/not-favorite.png" className="user-page-favorite-icon" />
+                  </td>
+                </tr>
+              ))}
+              <tr lassName="table-listing">
+                <td colSpan="4" className="table-listing-item user-page-listing">
+                  <Link to={`/user/setlists/${currentUser.id}`} className="purple-text underline-hover no-margin">See all of your tracked shows!</Link>
+                </td>
+              </tr>
+            </table>
           </div>
           <div id="user-landing-right-pane">
             <h4 className="header-text purple-text">Favorite Shows</h4>

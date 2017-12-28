@@ -74,7 +74,7 @@ class Artists extends Component {
       <div className="padding-container user-page">
         <h1 className="purple-text header-text">Artists You've Tracked</h1>
           {userSetlists.length && this.artistCountArr(userSetlists).map(artist =>
-            <table className="table-results-artist-page">
+            <table className="table-results-artist-page all-artist-table">
               <tr className="table-listing-artist-page" key={artist.artist} onClick={this.displayArtistStats}>
                 <h3 id={`${this.removeSpaces(artist.artist)}`} className="purple-text artist-listing">{`${artist.artist} (${artist.seen})`}</h3>
               </tr>

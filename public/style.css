@@ -540,3 +540,20 @@ a{
 .small-icon{
   width: 15px;
 }
+
+.all-artist-table{
+  width: 450px;
+}
+
+.top-artist-li{
+  font-size: .75rem;
+}
+
+.top-artist-link{
+  color: black;
+  text-decoration: none;
+}
+
+.top-artist-link:hover{
+  text-decoration: underline;
+}

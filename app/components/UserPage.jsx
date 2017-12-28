@@ -9,6 +9,7 @@ import { toggleView } from '../helperfuncs.js'
 import userStats from '../reducers/userStats.js'
 import store from '../store.jsx'
 import {setUserStats} from '../reducers/userStats.js'
+import { setUserSetlists } from '../reducers/userSetlists.js'
 
 class UserPage extends Component {
   constructor(props){
@@ -17,14 +18,21 @@ class UserPage extends Component {
     this.artistCount = this.artistCount.bind(this)
     this.venueCount = this.venueCount.bind(this)
     this.recentShows = this.recentShows.bind(this)
+    this.artistCountArr = this.artistCountArr.bind(this)
   }
 
   componentDidMount(){
-    const {paramId} = this.props
+    const {paramId, currentUser} = this.props
     axios.get(`/api/search/stats/${paramId}`)
     .then(res => res.data)
     .then(setlists => {
       store.dispatch(setUserStats(setlists.userShows))
+    })
+
+    axios.get(`/api/shows/${currentUser.id}`)
+    .then(res => res.data)
+    .then(setlists => {
+      store.dispatch(setUserSetlists(setlists))
     })
   }
 
@@ -90,8 +98,48 @@ class UserPage extends Component {
     }
   }
 
+  artistCountArr(setlistArr){
+    let returnObj = {}
+
+    for(var i = 0; i<setlistArr.length; i++){
+      if(returnObj[setlistArr[i].artistName]){
+        returnObj[setlistArr[i].artistName] = returnObj[setlistArr[i].artistName] + 1
+      } else {
+        returnObj[setlistArr[i].artistName] = 1
+      }
+    }
+
+    let returnArr = []
+
+    for(var key in returnObj){
+      returnArr.push(
+        {
+          artist: key,
+          seen: returnObj[key]
+        }
+      )
+    }
+
+    returnArr = returnArr.sort(function(a, b){
+      return b.seen - a.seen
+    })
+
+    if(returnArr.length > 5){
+      return returnArr.slice(0, 6)
+    }
+
+    return returnArr
+
+    // if(returnArr.length > 5){
+    //   return returnArr.slice(0, 6)
+    // }
+
+    // console.log('artist count arr: ', returnArr)
+    // return returnArr
+  }
+
   render() {
-    const { user, currentUser, userStats } = this.props
+    const { user, currentUser, userStats, userSetlists } = this.props
     if(!user) return <div /> //the user id is invalid or data isn't loaded yet
     const authorized = currentUser && (currentUser.id === user.id)
     return (
@@ -133,8 +181,8 @@ class UserPage extends Component {
         <div id="user-landing-page">
           <div id='user-landing-left-pane'>
             <h2 className="header-text purple-text">Stats</h2>
-            <p>You've seen <Link to={`/user/setlists/${currentUser.id && currentUser.id}`} className="purple-text underline-hover">{userStats.count} shows</Link> consisting of <Link to={`/user/artists/${currentUser.id}`} className="purple-text underline-hover">{userStats.rows && this.artistCount(userStats.rows)} artists</Link> at <Link to="#" className="purple-text underline-hover">{userStats.rows && this.venueCount(userStats.rows)} venues</Link>.</p>
-            <h2 className="header-text purple-text">Recently Added Shows</h2>
+            <p>You've tracked <Link to={`/user/setlists/${currentUser.id && currentUser.id}`} className="purple-text underline-hover">{userStats.count} shows</Link> consisting of <Link to={`/user/artists/${currentUser.id}`} className="purple-text underline-hover">{userStats.rows && this.artistCount(userStats.rows)} artists</Link> at <Link to="#" className="purple-text underline-hover">{userStats.rows && this.venueCount(userStats.rows)} venues</Link>.</p>
+            <h2 className="header-text purple-text">Recently Tracked Shows</h2>
             <table className="table-results">
               {userStats.rows && this.recentShows(userStats.rows).map(show => (
                 <tr className="table-listing" key={show.id}>
@@ -165,6 +213,11 @@ class UserPage extends Component {
           <div id="user-landing-right-pane">
             <h4 className="header-text purple-text">Favorite Shows</h4>
             <h4 className="header-text purple-text">Top Artists</h4>
+              <ul>
+                {userSetlists.length && this.artistCountArr(userSetlists).map(result => (
+                  <li className="top-artist-li"><Link to="#" className="top-artist-link">{result.artist} ({result.seen})</Link></li>
+                ))}
+              </ul>
             <h4 className="header-text purple-text">Top Venues</h4>
           </div>
         </div>
@@ -175,13 +228,14 @@ class UserPage extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({users, currentUser, userStats}, ownProps) => {
+const mapState = ({users, currentUser, userStats, userSetlists}, ownProps) => {
   const paramId = Number(ownProps.match.params.userId)
   return {
     user: _.find(users, user => user.id === paramId),
     currentUser,
     userStats,
-    paramId
+    paramId,
+    userSetlists
   }
 }
 

@@ -17,6 +17,7 @@ import {getSearch} from '../reducers/setlistSearch.js'
 import Setlist from './setlist.jsx'
 import UserShows from './userShows.jsx'
 import Artists from './Artists.jsx'
+import Venues from './Venues.jsx'
 
 export default class Main extends Component {
   componentDidMount() {
@@ -45,8 +46,9 @@ export default class Main extends Component {
               <Route exact path="/setlist/:setlistId" component={Setlist} />
               <Route exact path="/user/setlists/:userId" component={UserShows} />
               <Route exact path="/user/artists/:userId" component={Artists} />
+              <Route exact path="/user/venues/:userId" component={Venues} />
             </Switch>
-            <Footer />
+          <Footer />
         </div>
       </Router>
     )

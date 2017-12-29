@@ -19,6 +19,7 @@ class UserPage extends Component {
     this.venueCount = this.venueCount.bind(this)
     this.recentShows = this.recentShows.bind(this)
     this.artistCountArr = this.artistCountArr.bind(this)
+    this.venueCountArr = this.venueCountArr.bind(this)
   }
 
   componentDidMount(){
@@ -129,13 +130,39 @@ class UserPage extends Component {
     }
 
     return returnArr
+  }
 
-    // if(returnArr.length > 5){
-    //   return returnArr.slice(0, 6)
-    // }
+  venueCountArr(setlistArr){
+    let returnObj = {}
 
-    // console.log('artist count arr: ', returnArr)
-    // return returnArr
+        for(var i = 0; i<setlistArr.length; i++){
+          if(returnObj[setlistArr[i].venueName]){
+            returnObj[setlistArr[i].venueName] = returnObj[setlistArr[i].venueName] + 1
+          } else {
+            returnObj[setlistArr[i].venueName] = 1
+          }
+        }
+
+        let returnArr = []
+
+        for (var key in returnObj){
+          returnArr.push(
+            {
+              venue: key,
+              seen: returnObj[key]
+            }
+          )
+        }
+
+        returnArr = returnArr.sort(function(a, b){
+          return b.seen - a.seen
+        })
+
+        if(returnArr.length > 5){
+          return returnArr.slice(0, 6)
+        }
+
+        return returnArr
   }
 
   render() {
@@ -181,7 +208,7 @@ class UserPage extends Component {
         <div id="user-landing-page">
           <div id='user-landing-left-pane'>
             <h2 className="header-text purple-text">Stats</h2>
-            <p>You've tracked <Link to={`/user/setlists/${currentUser.id && currentUser.id}`} className="purple-text underline-hover">{userStats.count} shows</Link> consisting of <Link to={`/user/artists/${currentUser.id}`} className="purple-text underline-hover">{userStats.rows && this.artistCount(userStats.rows)} artists</Link> at <Link to="#" className="purple-text underline-hover">{userStats.rows && this.venueCount(userStats.rows)} venues</Link>.</p>
+            <p>You've tracked <Link to={`/user/setlists/${currentUser.id && currentUser.id}`} className="purple-text underline-hover">{userStats.count} shows</Link> consisting of <Link to={`/user/artists/${currentUser.id}`} className="purple-text underline-hover">{userStats.rows && this.artistCount(userStats.rows)} artists</Link> at <Link to={`/user/venues/${currentUser.id}`} className="purple-text underline-hover">{userStats.rows && this.venueCount(userStats.rows)} venues</Link>.</p>
             <h2 className="header-text purple-text">Recently Tracked Shows</h2>
             <table className="table-results">
               {userStats.rows && this.recentShows(userStats.rows).map(show => (
@@ -219,6 +246,15 @@ class UserPage extends Component {
                 ))}
               </ul>
             <h4 className="header-text purple-text">Top Venues</h4>
+                <ul>
+                {userSetlists.length && this.venueCountArr(userSetlists).map(result => (
+                  <li className="top-artist-li">
+                    <Link to="#" className="top-artist-link">
+                      {result.venue} ({result.seen})
+                    </Link>
+                  </li>
+                ))}
+                </ul>
           </div>
         </div>
       </div>

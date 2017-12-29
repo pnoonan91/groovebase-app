@@ -19,7 +19,7 @@ function Navbar(props) {
         <h2 className="nav-link-a"></h2>
         <Link to={`/user/setlists/${currentUser.id}`}><h2 className="nav-link-a">Shows</h2></Link>
         <Link to={`/user/artists/${currentUser.id}`}><h2 className="nav-link-a">Artists</h2></Link>
-        <Link to="#"><h2 className="nav-link-a">Venues</h2></Link>
+        <Link to={`/user/venues/${currentUser.id}`}><h2 className="nav-link-a">Venues</h2></Link>
         <Link to="/logout" onClick={props.logout}><h2 className="nav-link-a">Log Out</h2></Link>
       </div>
     </div>

@@ -7,11 +7,11 @@ import { setUserSetlists } from '../reducers/userSetlists.js'
 import { Link } from 'react-router-dom'
 import { setlistSearchResultsPage } from '../reducers/setlistSearch'
 
-class Artists extends Component {
+class Venues extends Component {
   constructor(props){
     super(props)
-    this.artistCountArr = this.artistCountArr.bind(this)
-    this.displayArtistStats = this.displayArtistStats.bind(this)
+    this.venueCountArr = this.venueCountArr.bind(this)
+    this.displayVenueShows = this.displayVenueShows.bind(this)
     this.removeSpaces = this.removeSpaces.bind(this)
     this.playlistSearch = this.playlistSearch.bind(this)
   }
@@ -26,14 +26,14 @@ class Artists extends Component {
     })
   }
 
-  artistCountArr(setlistArr){
+  venueCountArr(setlistArr){
     let returnObj = {}
 
     for(var i = 0; i<setlistArr.length; i++){
-      if(returnObj[setlistArr[i].artistName]){
-        returnObj[setlistArr[i].artistName] = returnObj[setlistArr[i].artistName] + 1
+      if(returnObj[setlistArr[i].venueName]){
+        returnObj[setlistArr[i].venueName] = returnObj[setlistArr[i].venueName] + 1
       } else {
-        returnObj[setlistArr[i].artistName] = 1
+        returnObj[setlistArr[i].venueName] = 1
       }
     }
 
@@ -42,7 +42,7 @@ class Artists extends Component {
     for (var key in returnObj){
       returnArr.push(
         {
-          artist: key,
+          venue: key,
           seen: returnObj[key]
         }
       )
@@ -51,7 +51,7 @@ class Artists extends Component {
     return returnArr
   }
 
-  displayArtistStats(element){
+  displayVenueShows(element){
 
     let showStats = element.target.id + '-details'
     let displayEl = document.getElementById(showStats)
@@ -104,7 +104,7 @@ class Artists extends Component {
     return (
       <div className="padding-container user-page">
         <div id="user-header">
-          <h1 className="purple-text header-text">Artists You've Tracked</h1>
+          <h1 className="purple-text header-text">Venues You've Visited</h1>
           <div id="playlist-search">
             <h3 className="purple-text playlist-search-btn no-margin" onClick={this.toggleView}>+Search for a Setlist</h3>
           </div>
@@ -124,24 +124,24 @@ class Artists extends Component {
           </form>
         </div>
 
-          {userSetlists.length && this.artistCountArr(userSetlists).map(artist =>
+          {userSetlists.length && this.venueCountArr(userSetlists).map(venue =>
             <table className="table-results-artist-page all-artist-table">
-              <tr className="table-listing-artist-page" key={artist.artist} onClick={this.displayArtistStats}>
-                <h3 id={`${this.removeSpaces(artist.artist)}`} className="purple-text artist-listing no-margin">{`${artist.artist} (${artist.seen})`}</h3>
+              <tr className="table-listing-artist-page" key={venue.venue} onClick={this.displayVenueShows}>
+                <h3 id={`${this.removeSpaces(venue.venue)}`} className="purple-text artist-listing no-margin">{`${venue.venue} (${venue.seen})`}</h3>
               </tr>
-              <tr id={`${this.removeSpaces(artist.artist)}-details`} className="hide-artist-details artist-details">
-                <div id="artist-details-container">
-                  {userSetlists.filter(obj => obj.artistName === artist.artist).map(show => (
-                    <Link to={`/setlist/${show.setlistId}`} className="black-text">
-                    <div className="artist-details-item">
-                      <h4 className="no-margin artist-detail-header">{show.venueName}</h4>
-                      <h5 className="no-margin">{`${show.city}, ${show.stateCode}`}</h5>
-                      <h5 className="no-margin">{show.eventDate}</h5>
-                    </div>
-                    </Link>
-                  ))}
-                </div>
-              </tr>
+              <tr id={`${this.removeSpaces(venue.venue)}-details`} className="hide-artist-details artist-details">
+              <div id="artist-details-container">
+                {userSetlists.filter(obj => obj.venueName === venue.venue).map(show => (
+                  <Link to={`/setlist/${show.setlistId}`} className="black-text">
+                  <div className="artist-details-item">
+                    <h4 className="no-margin artist-detail-header">{show.artistName}</h4>
+                    <h5 className="no-margin">{`${show.city}, ${show.stateCode}`}</h5>
+                    <h5 className="no-margin">{show.eventDate}</h5>
+                  </div>
+                  </Link>
+                ))}
+              </div>
+            </tr>
             </table>
           )}
       </div>
@@ -160,6 +160,6 @@ const mapState = ({ currentUser, userSetlists }, ownProps) => {
 
 const mapDispatch = {
   searchSetlist: setlistSearchResultsPage
-}
+ }
 
-export default connect(mapState, mapDispatch)(Artists)
+export default connect(mapState, mapDispatch)(Venues)

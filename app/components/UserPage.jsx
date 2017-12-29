@@ -10,6 +10,7 @@ import userStats from '../reducers/userStats.js'
 import store from '../store.jsx'
 import {setUserStats} from '../reducers/userStats.js'
 import { setUserSetlists } from '../reducers/userSetlists.js'
+import { setUserFavorites } from '../reducers/userFavorites.js'
 
 class UserPage extends Component {
   constructor(props){
@@ -20,6 +21,7 @@ class UserPage extends Component {
     this.recentShows = this.recentShows.bind(this)
     this.artistCountArr = this.artistCountArr.bind(this)
     this.venueCountArr = this.venueCountArr.bind(this)
+    this.addFavorite = this.addFavorite.bind(this)
   }
 
   componentDidMount(){
@@ -34,6 +36,12 @@ class UserPage extends Component {
     .then(res => res.data)
     .then(setlists => {
       store.dispatch(setUserSetlists(setlists))
+    })
+
+    axios.get(`/api/shows/favorite/${currentUser.id}`)
+    .then(res => res.data)
+    .then(favorites => {
+      store.dispatch(setUserFavorites(favorites))
     })
   }
 
@@ -165,6 +173,20 @@ class UserPage extends Component {
         return returnArr
   }
 
+  addFavorite(element){
+    const {currentUser} = this.props
+    console.log(element.target.id)
+    axios.put(`/api/shows/favorite/${element.target.id}`)
+    .then(res => console.log(res))
+    .then(() => {
+      axios.get(`/api/shows/favorite/${currentUser.id}`)
+      .then(res => res.data)
+      .then(favorites => {
+        store.dispatch(setUserFavorites(favorites))
+      })
+    })
+  }
+
   render() {
     const { user, currentUser, userStats, userSetlists } = this.props
     if(!user) return <div /> //the user id is invalid or data isn't loaded yet
@@ -226,7 +248,7 @@ class UserPage extends Component {
                     <p className="no-margin">{`${show.city}, ${show.stateCode}`}</p>
                   </td>
                   <td className="table-listing" key={show.id}>
-                    <img src="/favorite-icons/not-favorite.png" className="user-page-favorite-icon" />
+                    <img src={show.isFavorite} className="user-page-favorite-icon" id={show.id} onClick={this.addFavorite}/>
                   </td>
                 </tr>
               ))}

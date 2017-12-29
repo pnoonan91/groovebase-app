@@ -37,7 +37,23 @@ var UsersShows = db.define('UsersShows', {
   eventDate: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  favorite: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
   }
+},
+  { getterMethods: {
+      isFavorite() {
+        if(this.favorite === true){
+          return "/favorite-icons/favorite.png"
+        }
+        else{
+          return "/favorite-icons/not-favorite.png"
+        }
+      }
+    }
 })
 
 module.exports = UsersShows

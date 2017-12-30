@@ -175,20 +175,35 @@ class UserPage extends Component {
 
   addFavorite(element){
     const {currentUser} = this.props
-    console.log(element.target.id)
+    const imgSrc = element.target.id
     axios.put(`/api/shows/favorite/${element.target.id}`)
-    .then(res => console.log(res))
     .then(() => {
       axios.get(`/api/shows/favorite/${currentUser.id}`)
       .then(res => res.data)
       .then(favorites => {
         store.dispatch(setUserFavorites(favorites))
       })
+      .then(() => {
+        let fav = document.getElementById(`${imgSrc}`).src.slice(-16)
+        if(fav === 'not-favorite.png'){
+          document.getElementById(`${imgSrc}`).src = "/favorite-icons/favorite.png"
+        } else {
+          document.getElementById(`${imgSrc}`).src = "/favorite-icons/not-favorite.png"
+        }
+
+      })
+      .then(() => {
+        axios.get(`/api/shows/${currentUser.id}`)
+        .then(res => res.data)
+        .then(setlists => {
+          store.dispatch(setUserSetlists(setlists))
+        })
+      })
     })
   }
 
   render() {
-    const { user, currentUser, userStats, userSetlists } = this.props
+    const { user, currentUser, userStats, userSetlists, setUserFavorites, userFavorites } = this.props
     if(!user) return <div /> //the user id is invalid or data isn't loaded yet
     const authorized = currentUser && (currentUser.id === user.id)
     return (
@@ -261,6 +276,11 @@ class UserPage extends Component {
           </div>
           <div id="user-landing-right-pane">
             <h4 className="header-text purple-text">Favorite Shows</h4>
+              <ul>
+                {userFavorites.length && userFavorites.map(favorite => (
+                  <li className="top-artist-li"><Link to="#" className="top-artist-link">{`${favorite.artistName} (${favorite.eventDate})`}</Link></li>
+                ))}
+              </ul>
             <h4 className="header-text purple-text">Top Artists</h4>
               <ul>
                 {userSetlists.length && this.artistCountArr(userSetlists).map(result => (
@@ -286,14 +306,15 @@ class UserPage extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({users, currentUser, userStats, userSetlists}, ownProps) => {
+const mapState = ({users, currentUser, userStats, userSetlists, setUserFavorites, userFavorites}, ownProps) => {
   const paramId = Number(ownProps.match.params.userId)
   return {
     user: _.find(users, user => user.id === paramId),
     currentUser,
     userStats,
     paramId,
-    userSetlists
+    userSetlists,
+    userFavorites
   }
 }
 

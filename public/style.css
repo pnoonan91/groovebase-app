@@ -362,6 +362,22 @@ a{
   text-align: left
 }
 
+.show-page-table-header{
+  font-weight: bold;
+  color: white;
+  background-color: #a74de6;
+  border-bottom: 1px solid #d59bff;
+  text-align: left
+}
+
+.th-showpage{
+  padding-left: 1rem;
+}
+
+.th-showpage-center{
+  text-align: center;
+}
+
 .table-listing-artist-page{
   font-size: .75rem;
   text-align: left;

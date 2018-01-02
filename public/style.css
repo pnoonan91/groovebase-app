@@ -367,6 +367,12 @@ a{
   text-align: left;
 }
 
+.table-listing-final-row{
+  font-size: .75rem;
+  text-align: center;
+  border-bottom: 1px solid #d59bff;
+}
+
 .table-listing:hover{
   background-color: rgb(252, 249, 249)
 }
@@ -539,6 +545,10 @@ a{
 
 .small-icon{
   width: 15px;
+}
+
+.smaller-icon{
+  width: 8px;
 }
 
 .all-artist-table{

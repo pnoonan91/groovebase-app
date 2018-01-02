@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { setUserSetlists } from '../reducers/userSetlists.js'
 import { Link } from 'react-router-dom'
 import { setlistSearchResultsPage } from '../reducers/setlistSearch'
+import { setUserFavorites } from '../reducers/userFavorites.js'
 
 class Venues extends Component {
   constructor(props){
@@ -23,6 +24,12 @@ class Venues extends Component {
     .then(res => res.data)
     .then(setlists => {
       store.dispatch(setUserSetlists(setlists))
+    })
+
+    axios.get(`/api/shows/favorite/${currentUser.id}`)
+    .then(res => res.data)
+    .then(favorites => {
+      store.dispatch(setUserFavorites(favorites))
     })
   }
 
@@ -47,8 +54,86 @@ class Venues extends Component {
         }
       )
     }
-    console.log(returnArr)
+
+    let newReturnArr = returnArr.sort(function(a, b) {
+      var nameA = a.venue.toUpperCase()
+      var nameB = b.venue.toUpperCase()
+      if(nameA < nameB){
+        return -1
+      }
+      if(nameA > nameB){
+        return 1
+      }
+      return 0
+    })
+
+    return newReturnArr
+  }
+
+  artistCountArr(setlistArr){
+    let returnObj = {}
+
+    for(var i = 0; i<setlistArr.length; i++){
+      if(returnObj[setlistArr[i].artistName]){
+        returnObj[setlistArr[i].artistName] = returnObj[setlistArr[i].artistName] + 1
+      } else {
+        returnObj[setlistArr[i].artistName] = 1
+      }
+    }
+
+    let returnArr = []
+
+    for(var key in returnObj){
+      returnArr.push(
+        {
+          artist: key,
+          seen: returnObj[key]
+        }
+      )
+    }
+
+    returnArr = returnArr.sort(function(a, b){
+      return b.seen - a.seen
+    })
+
+    if(returnArr.length > 5){
+      return returnArr.slice(0, 6)
+    }
+
     return returnArr
+  }
+
+  topVenueCountArr(setlistArr){
+    let returnObj = {}
+
+        for(var i = 0; i<setlistArr.length; i++){
+          if(returnObj[setlistArr[i].venueName]){
+            returnObj[setlistArr[i].venueName] = returnObj[setlistArr[i].venueName] + 1
+          } else {
+            returnObj[setlistArr[i].venueName] = 1
+          }
+        }
+
+        let returnArr = []
+
+        for (var key in returnObj){
+          returnArr.push(
+            {
+              venue: key,
+              seen: returnObj[key]
+            }
+          )
+        }
+
+        returnArr = returnArr.sort(function(a, b){
+          return b.seen - a.seen
+        })
+
+        if(returnArr.length > 5){
+          return returnArr.slice(0, 6)
+        }
+
+        return returnArr
   }
 
   displayVenueShows(element){
@@ -82,6 +167,11 @@ class Venues extends Component {
     }
   }
 
+  topFunction() {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+  }
+
   playlistSearch(event) {
     event.preventDefault()
 
@@ -100,7 +190,7 @@ class Venues extends Component {
   }
 
   render() {
-    const { currentUser, userSetlists } = this.props
+    const { currentUser, userSetlists, userFavorites } = this.props
     return (
       <div className="padding-container user-page">
         <div id="user-header">
@@ -124,6 +214,8 @@ class Venues extends Component {
           </form>
         </div>
 
+        <div id="user-landing-page">
+          <div id="user-landing-left-pane">
           {userSetlists.length && this.venueCountArr(userSetlists).map(venue =>
             <table className="table-results-artist-page all-artist-table">
               <tr className="table-listing-artist-page" key={venue.venue} onClick={this.displayVenueShows}>
@@ -144,6 +236,37 @@ class Venues extends Component {
             </tr>
             </table>
           )}
+          <table className="table-results-artist-page all-artist-table">
+          <tr className="table-listing-final-row purple-text" onClick={this.topFunction}>
+          Back to Top <img className="smaller-icon" src="/images/top.png" />
+          </tr>
+        </table>
+          </div>
+          <div id="user-landing-right-pane">
+          <h4 className="header-text purple-text">Favorite Shows</h4>
+            <ul>
+              {userFavorites.length && userFavorites.map(favorite => (
+                <li className="top-artist-li"><Link to={`/setlist/${favorite.setlistId}`} className="top-artist-link">{`${favorite.artistName} (${favorite.eventDate})`}</Link></li>
+              ))}
+            </ul>
+          <h4 className="header-text purple-text">Top Artists</h4>
+            <ul>
+              {userSetlists.length && this.artistCountArr(userSetlists).map(result => (
+                <li className="top-artist-li"><Link to="#" className="top-artist-link">{result.artist} ({result.seen})</Link></li>
+              ))}
+            </ul>
+          <h4 className="header-text purple-text">Top Venues</h4>
+              <ul>
+              {userSetlists.length && this.topVenueCountArr(userSetlists).map(result => (
+                <li className="top-artist-li">
+                  <Link to="#" className="top-artist-link">
+                    {result.venue} ({result.seen})
+                  </Link>
+                </li>
+              ))}
+              </ul>
+        </div>
+        </div>
       </div>
     )
   }
@@ -151,10 +274,11 @@ class Venues extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ currentUser, userSetlists }, ownProps) => {
+const mapState = ({ currentUser, userSetlists, userFavorites }, ownProps) => {
   return {
     currentUser,
-    userSetlists
+    userSetlists,
+    userFavorites
   }
 }
 

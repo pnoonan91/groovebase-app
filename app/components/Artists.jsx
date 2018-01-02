@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { setUserSetlists } from '../reducers/userSetlists.js'
 import { Link } from 'react-router-dom'
 import { setlistSearchResultsPage } from '../reducers/setlistSearch'
+import { setUserFavorites } from '../reducers/userFavorites.js'
 
 class Artists extends Component {
   constructor(props){
@@ -24,6 +25,78 @@ class Artists extends Component {
     .then(setlists => {
       store.dispatch(setUserSetlists(setlists))
     })
+
+    axios.get(`/api/shows/favorite/${currentUser.id}`)
+    .then(res => res.data)
+    .then(favorites => {
+      store.dispatch(setUserFavorites(favorites))
+    })
+  }
+
+  topArtistCountArr(setlistArr){
+    let returnObj = {}
+
+    for(var i = 0; i<setlistArr.length; i++){
+      if(returnObj[setlistArr[i].artistName]){
+        returnObj[setlistArr[i].artistName] = returnObj[setlistArr[i].artistName] + 1
+      } else {
+        returnObj[setlistArr[i].artistName] = 1
+      }
+    }
+
+    let returnArr = []
+
+    for(var key in returnObj){
+      returnArr.push(
+        {
+          artist: key,
+          seen: returnObj[key]
+        }
+      )
+    }
+
+    returnArr = returnArr.sort(function(a, b){
+      return b.seen - a.seen
+    })
+
+    if(returnArr.length > 5){
+      return returnArr.slice(0, 6)
+    }
+
+    return returnArr
+  }
+
+  venueCountArr(setlistArr){
+    let returnObj = {}
+
+        for(var i = 0; i<setlistArr.length; i++){
+          if(returnObj[setlistArr[i].venueName]){
+            returnObj[setlistArr[i].venueName] = returnObj[setlistArr[i].venueName] + 1
+          } else {
+            returnObj[setlistArr[i].venueName] = 1
+          }
+        }
+
+        let returnArr = []
+
+        for (var key in returnObj){
+          returnArr.push(
+            {
+              venue: key,
+              seen: returnObj[key]
+            }
+          )
+        }
+
+        returnArr = returnArr.sort(function(a, b){
+          return b.seen - a.seen
+        })
+
+        if(returnArr.length > 5){
+          return returnArr.slice(0, 6)
+        }
+
+        return returnArr
   }
 
   artistCountArr(setlistArr){
@@ -47,7 +120,18 @@ class Artists extends Component {
         }
       )
     }
-    console.log(returnArr)
+    let newReturnArr = returnArr.sort(function(a, b) {
+      var nameA = a.artist.toUpperCase()
+      var nameB = b.artist.toUpperCase()
+      if(nameA < nameB){
+        return -1
+      }
+      if(nameA > nameB){
+        return 1
+      }
+      return 0
+    })
+
     return returnArr
   }
 
@@ -99,8 +183,13 @@ class Artists extends Component {
     this.props.searchSetlist(search)
   }
 
+  topFunction() {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+  }
+
   render() {
-    const { currentUser, userSetlists } = this.props
+    const { currentUser, userSetlists, userFavorites } = this.props
     return (
       <div className="padding-container user-page">
         <div id="user-header">
@@ -124,6 +213,8 @@ class Artists extends Component {
           </form>
         </div>
 
+        <div id="user-landing-page">
+          <div id="user-landing-left-pane">
           {userSetlists.length && this.artistCountArr(userSetlists).map(artist =>
             <table className="table-results-artist-page all-artist-table">
               <tr className="table-listing-artist-page" key={artist.artist} onClick={this.displayArtistStats}>
@@ -144,6 +235,37 @@ class Artists extends Component {
               </tr>
             </table>
           )}
+          <table className="table-results-artist-page all-artist-table">
+            <tr className="table-listing-final-row purple-text" onClick={this.topFunction}>
+            Back to Top <img className="smaller-icon" src="/images/top.png" />
+            </tr>
+          </table>
+          </div>
+          <div id="user-landing-right-pane">
+          <h4 className="header-text purple-text">Favorite Shows</h4>
+            <ul>
+              {userFavorites.length && userFavorites.map(favorite => (
+                <li className="top-artist-li"><Link to={`/setlist/${favorite.setlistId}`} className="top-artist-link">{`${favorite.artistName} (${favorite.eventDate})`}</Link></li>
+              ))}
+            </ul>
+          <h4 className="header-text purple-text">Top Artists</h4>
+            <ul>
+              {userSetlists.length && this.topArtistCountArr(userSetlists).map(result => (
+                <li className="top-artist-li"><Link to="#" className="top-artist-link">{result.artist} ({result.seen})</Link></li>
+              ))}
+            </ul>
+          <h4 className="header-text purple-text">Top Venues</h4>
+              <ul>
+              {userSetlists.length && this.venueCountArr(userSetlists).map(result => (
+                <li className="top-artist-li">
+                  <Link to="#" className="top-artist-link">
+                    {result.venue} ({result.seen})
+                  </Link>
+                </li>
+              ))}
+              </ul>
+        </div>
+        </div>
       </div>
     )
   }
@@ -151,10 +273,11 @@ class Artists extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ currentUser, userSetlists }, ownProps) => {
+const mapState = ({ currentUser, userSetlists, userFavorites }, ownProps) => {
   return {
     currentUser,
-    userSetlists
+    userSetlists,
+    userFavorites
   }
 }
 

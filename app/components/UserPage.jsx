@@ -242,6 +242,7 @@ class UserPage extends Component {
             </div>
           </form>
         </div>
+
         <div id="user-landing-page">
           <div id='user-landing-left-pane'>
             <h2 className="header-text purple-text">Stats</h2>
@@ -278,7 +279,7 @@ class UserPage extends Component {
             <h4 className="header-text purple-text">Favorite Shows</h4>
               <ul>
                 {userFavorites.length && userFavorites.map(favorite => (
-                  <li className="top-artist-li"><Link to="#" className="top-artist-link">{`${favorite.artistName} (${favorite.eventDate})`}</Link></li>
+                  <li className="top-artist-li"><Link to={`/setlist/${favorite.setlistId}`} className="top-artist-link">{`${favorite.artistName} (${favorite.eventDate})`}</Link></li>
                 ))}
               </ul>
             <h4 className="header-text purple-text">Top Artists</h4>

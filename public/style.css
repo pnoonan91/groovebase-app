@@ -593,8 +593,32 @@ a{
   justify-content: space-between;
 }
 
-#single-artist-top-albums{
-  min-width: 500px;
+#single-artist-top-tracks{
+  width: 450px;
   border-left: 1px solid lightgray;
   padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.onerem-padding-left{
+  padding-left: 1rem;
+}
+
+.btm-margin{
+  margin-top: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 1rem;
+}
+
+.top-album{
+  border: 1px solid lightgray;
+  background-color: white;
+}
+
+#set-width-table{
+  width: 600px;
+  margin-top: 1rem;
 }

@@ -7,5 +7,6 @@ import userSetlists from './userSetlists'
 import userStats from './userStats'
 import userFavorites from './userFavorites'
 import currentArtist from './singleArtist.js'
+import artistTopAlbums from './artistTopAlbums.js'
 
-export default combineReducers({users, currentUser, setlistSearch, setlist, userSetlists, userStats, userFavorites, currentArtist})
+export default combineReducers({users, currentUser, setlistSearch, setlist, userSetlists, userStats, userFavorites, currentArtist, artistTopAlbums})

@@ -99,4 +99,33 @@ router.get('/singleartist/:artistMbid', function(req, res, next) {
   .catch(next)
 })
 
+router.post('/topalbums', function(req, res, next) {
+  var artistMbid = req.body.artistMbid
+  var topAlbums
+
+  var options = { method: 'GET',
+  url: 'http://ws.audioscrobbler.com/2.0/',
+  qs:
+   { method: 'artist.gettopalbums',
+     mbid: artistMbid,
+     api_key: 'b18cd2a3fdc3df127d4e9e87cf4b1fc0',
+     format: 'json' },
+  headers:
+   { 'postman-token': 'e6a2fa51-e322-cf97-d0d8-9056d33ea27f',
+     'cache-control': 'no-cache',
+     'x-api-key': 'c5653fc6-cf2a-4988-a6d8-301648012d9c',
+     accept: 'application/json' }
+  }
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error)
+
+  topAlbums = body
+})
+.then(() => {
+  res.json(topAlbums)
+})
+
+})
+
 module.exports = router

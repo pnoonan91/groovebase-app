@@ -89,4 +89,14 @@ router.get('/stats/:userId', function(req, res, next) {
 
 })
 
+router.get('/singleartist/:artistMbid', function(req, res, next) {
+  UserShows.findOne({
+    where: {
+      artistMbid: req.params.artistMbid
+    }
+  })
+  .then(artist => res.json(artist))
+  .catch(next)
+})
+
 module.exports = router

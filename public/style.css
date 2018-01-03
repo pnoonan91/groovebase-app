@@ -583,3 +583,18 @@ a{
 .top-artist-link:hover{
   text-decoration: underline;
 }
+
+.bold{
+  font-weight: bold;
+}
+
+#single-artist-content{
+  display: flex;
+  justify-content: space-between;
+}
+
+#single-artist-top-albums{
+  min-width: 500px;
+  border-left: 1px solid lightgray;
+  padding: 1rem;
+}

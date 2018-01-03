@@ -112,9 +112,13 @@ class UserPage extends Component {
 
     for(var i = 0; i<setlistArr.length; i++){
       if(returnObj[setlistArr[i].artistName]){
-        returnObj[setlistArr[i].artistName] = returnObj[setlistArr[i].artistName] + 1
+        returnObj[setlistArr[i].artistName].count ++
       } else {
-        returnObj[setlistArr[i].artistName] = 1
+        returnObj[setlistArr[i].artistName] = {
+          count: 1,
+          UserId: setlistArr[i].UserId,
+          artistId: setlistArr[i].artistMbid
+        }
       }
     }
 
@@ -124,7 +128,9 @@ class UserPage extends Component {
       returnArr.push(
         {
           artist: key,
-          seen: returnObj[key]
+          seen: returnObj[key].count,
+          UserId: returnObj[key].UserId,
+          artistId: returnObj[key].artistId
         }
       )
     }
@@ -285,7 +291,7 @@ class UserPage extends Component {
             <h4 className="header-text purple-text">Top Artists</h4>
               <ul>
                 {userSetlists.length && this.artistCountArr(userSetlists).map(result => (
-                  <li className="top-artist-li"><Link to="#" className="top-artist-link">{result.artist} ({result.seen})</Link></li>
+                  <li className="top-artist-li"><Link to={`/singleartist/${result.UserId}/${result.artistId}`} className="top-artist-link">{result.artist} ({result.seen})</Link></li>
                 ))}
               </ul>
             <h4 className="header-text purple-text">Top Venues</h4>

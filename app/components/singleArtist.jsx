@@ -15,6 +15,7 @@ class SingleArtist extends Component {
     super(props)
     this.artistCount = this.artistCount.bind(this)
     this.topAlbumsArr = this.topAlbumsArr.bind(this)
+    this.addFavorite = this.addFavorite.bind(this)
   }
 
   componentDidMount() {
@@ -51,6 +52,35 @@ class SingleArtist extends Component {
     else{
       return artistTopAlbums.topalbums.album
     }
+  }
+
+  addFavorite(element){
+    const {currentUser} = this.props
+    const imgSrc = element.target.id
+    axios.put(`/api/shows/favorite/${element.target.id}`)
+    .then(() => {
+      axios.get(`/api/shows/favorite/${currentUser.id}`)
+      .then(res => res.data)
+      .then(favorites => {
+        store.dispatch(setUserFavorites(favorites))
+      })
+      .then(() => {
+        let fav = document.getElementById(`${imgSrc}`).src.slice(-16)
+        if(fav === 'not-favorite.png'){
+          document.getElementById(`${imgSrc}`).src = "/favorite-icons/favorite.png"
+        } else {
+          document.getElementById(`${imgSrc}`).src = "/favorite-icons/not-favorite.png"
+        }
+
+      })
+      .then(() => {
+        axios.get(`/api/shows/${currentUser.id}`)
+        .then(res => res.data)
+        .then(setlists => {
+          store.dispatch(setUserSetlists(setlists))
+        })
+      })
+    })
   }
 
   render() {

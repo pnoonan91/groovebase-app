@@ -138,7 +138,7 @@ class UserShows extends Component {
             }).map(setlist => (
               <tr className="table-listing" key={setlist.id}>
                 <td className="table-listing-item user-page-listing">
-                  <Link to={`/setlist/${setlist.setlistId}`}>
+                  <Link to={`/singleartist/${currentUser.id}/${setlist.artistMbid}`}>
                     <h3 className="purple-text no-margin underline-hover">{setlist.artistName}</h3>
                   </Link>
                 </td>

@@ -258,7 +258,7 @@ class UserPage extends Component {
               {userStats.rows && this.recentShows(userStats.rows).map(show => (
                 <tr className="table-listing" key={show.id}>
                   <td className="table-listing-item user-page-listing">
-                    <Link to={`/setlist/${show.setlistId}`}>
+                    <Link to={`/singleartist/${currentUser.id}/${show.artistMbid}`}>
                     <h3 className="purple-text no-margin underline-hover">{show.artistName}</h3>
                     </Link>
                   </td>

@@ -104,9 +104,12 @@ class Artists extends Component {
 
     for(var i = 0; i<setlistArr.length; i++){
       if(returnObj[setlistArr[i].artistName]){
-        returnObj[setlistArr[i].artistName] = returnObj[setlistArr[i].artistName] + 1
+        returnObj[setlistArr[i].artistName].count ++
       } else {
-        returnObj[setlistArr[i].artistName] = 1
+        returnObj[setlistArr[i].artistName] = {
+          count: 1,
+          artistMbid: setlistArr[i].artistMbid
+        }
       }
     }
 
@@ -116,7 +119,8 @@ class Artists extends Component {
       returnArr.push(
         {
           artist: key,
-          seen: returnObj[key]
+          seen: returnObj[key].count,
+          artistMbid: returnObj[key].artistMbid
         }
       )
     }
@@ -218,7 +222,7 @@ class Artists extends Component {
           {userSetlists.length && this.artistCountArr(userSetlists).map(artist =>
             <table className="table-results-artist-page all-artist-table">
               <tr className="table-listing-artist-page" key={artist.artist} onClick={this.displayArtistStats}>
-                <h3 id={`${this.removeSpaces(artist.artist)}`} className="purple-text artist-listing no-margin">{`${artist.artist} (${artist.seen})`}</h3>
+                <Link className="purple-text underline-hover" to={`/singleartist/${currentUser.id}/${artist.artistMbid}`}><h3 id={`${this.removeSpaces(artist.artist)}`} className="purple-text artist-listing no-margin">{`${artist.artist} (${artist.seen})`}</h3></Link>
               </tr>
               <tr id={`${this.removeSpaces(artist.artist)}-details`} className="hide-artist-details artist-details">
                 <div id="artist-details-container">

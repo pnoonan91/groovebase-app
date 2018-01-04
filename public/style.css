@@ -629,3 +629,34 @@ a{
   padding: 1rem;
   width: 600px;
 }
+
+.tour-listing{
+  font-size: 0.65rem;
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  padding: 0.5rem;
+}
+
+.tour-listing-hover:hover{
+  background-color: rgb(245, 245, 245);
+}
+
+#tour-date-container{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.access-button-small{
+  font-size: 0.65rem;
+  border: 1px solid #a74de6;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding: 2px 6px;
+  background-color:  #a74de6;
+  color: white;
+}
+
+.access-button-small:hover{
+  background-color: white;
+  color: #a74de6;
+}

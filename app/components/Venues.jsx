@@ -38,9 +38,12 @@ class Venues extends Component {
 
     for(var i = 0; i<setlistArr.length; i++){
       if(returnObj[setlistArr[i].venueName]){
-        returnObj[setlistArr[i].venueName] = returnObj[setlistArr[i].venueName] + 1
+        returnObj[setlistArr[i].venueName].count ++
       } else {
-        returnObj[setlistArr[i].venueName] = 1
+        returnObj[setlistArr[i].venueName] = {
+          count: 1,
+          venueId: setlistArr[i].venueId
+        }
       }
     }
 
@@ -50,7 +53,8 @@ class Venues extends Component {
       returnArr.push(
         {
           venue: key,
-          seen: returnObj[key]
+          seen: returnObj[key].count,
+          venueId: returnObj[key].venueId
         }
       )
     }
@@ -219,7 +223,9 @@ class Venues extends Component {
           {userSetlists.length && this.venueCountArr(userSetlists).map(venue =>
             <table className="table-results-artist-page all-artist-table">
               <tr className="table-listing-artist-page" key={venue.venue} onClick={this.displayVenueShows}>
-                <h3 id={`${this.removeSpaces(venue.venue)}`} className="purple-text artist-listing no-margin">{`${venue.venue} (${venue.seen})`}</h3>
+                <Link to={`/singlevenue/${currentUser.id}/${venue.venueId}`}>
+                  <h3 id={`${this.removeSpaces(venue.venue)}`} className="purple-text artist-listing no-margin">{`${venue.venue} (${venue.seen})`}</h3>
+                </Link>
               </tr>
               <tr id={`${this.removeSpaces(venue.venue)}-details`} className="hide-artist-details artist-details">
               <div id="artist-details-container">

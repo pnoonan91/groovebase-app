@@ -267,11 +267,15 @@ class UserPage extends Component {
                     </Link>
                   </td>
                   <td className="table-listing-item user-page-listing">
-                    <p className="no-margin">{show.eventDate}</p>
+                    <Link className="black-text" to={`/setlist/${show.setlistId}`}>
+                      <p className="no-margin">{show.eventDate}</p>
+                    </Link>
                   </td>
                   <td className="table-listing-item user-page-listing">
-                    <p className="no-margin">{show.venueName}</p>
-                    <p className="no-margin">{`${show.city}, ${show.stateCode}`}</p>
+                    <Link className="black-text" to={`/singlevenue/${currentUser.id}/${show.venueId}`}>
+                      <p className="no-margin">{show.venueName}</p>
+                      <p className="no-margin">{`${show.city}, ${show.stateCode}`}</p>
+                    </Link>
                   </td>
                   <td className="table-listing" key={show.id}>
                     <img src={show.isFavorite} className="user-page-favorite-icon" id={show.id} onClick={this.addFavorite}/>

@@ -9,5 +9,6 @@ import userFavorites from './userFavorites'
 import currentArtist from './singleArtist.js'
 import artistTopAlbums from './artistTopAlbums.js'
 import currentVenue from './singleVenue.js'
+import tourDates from './upcomingTourDates.js'
 
-export default combineReducers({users, currentUser, setlistSearch, setlist, userSetlists, userStats, userFavorites, currentArtist, artistTopAlbums, currentVenue})
+export default combineReducers({users, currentUser, setlistSearch, setlist, userSetlists, userStats, userFavorites, currentArtist, artistTopAlbums, currentVenue, tourDates})

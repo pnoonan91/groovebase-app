@@ -143,11 +143,15 @@ class UserShows extends Component {
                   </Link>
                 </td>
                 <td className="table-listing-item user-page-listing">
-                  <p className="no-margin">{setlist.eventDate}</p>
+                  <Link className="black-text" to={`/setlist/${setlist.setlistId}`}>
+                    <p className="no-margin">{setlist.eventDate}</p>
+                  </Link>
                 </td>
                 <td className="table-listing-item user-page-listing">
-                  <p className="no-margin">{setlist.venueName}</p>
-                  <p className="no-margin">{`${setlist.city}, ${setlist.stateCode}`}</p>
+                  <Link className="black-text" to={`/singlevenue/${currentUser.id}/${setlist.venueId}`}>
+                    <p className="no-margin">{setlist.venueName}</p>
+                    <p className="no-margin">{`${setlist.city}, ${setlist.stateCode}`}</p>
+                  </Link>
                 </td>
                 <td className="table-listing" key={setlist.id}>
                   <img src={setlist.isFavorite} className="user-page-favorite-icon" id={setlist.id} onClick={this.addFavorite}/>

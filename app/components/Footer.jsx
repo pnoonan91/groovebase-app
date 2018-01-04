@@ -9,7 +9,7 @@ function Footer(props) {
         <div id="footer-nav">
           <h1 className="footer-logo">grooveBase</h1>
           <p>
-            <Link to="/">HOME</Link> | <Link to="#">ABOUT US</Link> | <Link to="#">CONTACT</Link> | <Link to="/signup">SIGN UP</Link>
+            <Link to="/">HOME</Link> | <Link to="mailto:pnoonan91@gmail.com">CONTACT</Link> | <Link to="/signup">SIGN UP</Link>
           </p>
         </div>
       </div>

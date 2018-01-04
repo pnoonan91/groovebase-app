@@ -138,4 +138,28 @@ router.get('/singlevenue/:venueId', function(req, res, next) {
   .catch(next)
 })
 
+router.get('/tourdates/:artistName', function(req, res, next) {
+
+  var tourDates
+
+  var options = { method: 'GET',
+  url: `https://rest.bandsintown.com/artists/${req.params.artistName}/events`,
+  qs: { app_id: 'grooveBase' },
+  headers:
+   { 'postman-token': 'f157689a-86de-d84d-ac5e-7f1774a1ee6f',
+     'cache-control': 'no-cache',
+     accept: 'application/json' }
+  }
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error)
+
+  tourDates = body
+})
+.then(() => {
+  res.json(tourDates)
+})
+
+})
+
 module.exports = router

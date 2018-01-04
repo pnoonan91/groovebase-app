@@ -9,6 +9,7 @@ import { setlistSearchResultsPage } from '../reducers/setlistSearch'
 import { setUserFavorites } from '../reducers/userFavorites.js'
 import {artistSearch} from '../reducers/singleArtist.js'
 import {topAlbumSearch, setArtistTopAlbums} from '../reducers/artistTopAlbums.js'
+import {tourSearch} from '../reducers/upcomingTourDates.js'
 
 class SingleArtist extends Component {
   constructor(props) {
@@ -19,13 +20,18 @@ class SingleArtist extends Component {
   }
 
   componentDidMount() {
-    const {artistId} = this.props
+    const {artistId, userSetlists} = this.props
 
-    const currentArtist = artistSearch(artistId)
-    store.dispatch(currentArtist)
+    const artist = artistSearch(artistId)
+    store.dispatch(artist)
 
     const artistTopAlbums = topAlbumSearch({artistMbid: artistId})
     store.dispatch(artistTopAlbums)
+
+    let artistName = userSetlists.filter(setlist => setlist.artistMbid === artistId)
+    const tourDates = tourSearch(artistName[0].artistName)
+    store.dispatch(tourDates)
+
   }
 
   componentWillUnmount(){
@@ -84,7 +90,7 @@ class SingleArtist extends Component {
   }
 
   render() {
-    const { currentUser, userSetlists, userFavorites, artistId, currentArtist, userStats, artistTopAlbums } = this.props
+    const { currentUser, userSetlists, userFavorites, artistId, currentArtist, userStats, artistTopAlbums, tourDates } = this.props
     return (
       <div className="padding-container user-page">
         <div>
@@ -120,12 +126,21 @@ class SingleArtist extends Component {
               ))}
               </table>
             </div>
-            <h4 className="purple-text header-text">Upcoming Tour Dates</h4>
+            <h4 className="purple-text header-text">See This Artist Again</h4>
               <table id="upcoming-tour-dates">
-                <table>
-                  <tr>
-                    Testing
-                  </tr>
+                <table id="tour-date-container">
+                  {tourDates.length && tourDates.length ? tourDates.slice(0,10).map(show => (
+                    <tr className="tour-listing-hover">
+                      <td className="tour-listing bold">{show.datetime.slice(5,10)}</td>
+                      <td className="tour-listing">{show.venue.name}</td>
+                      <td className="tour-listing">{`${show.venue.city}, ${show.venue.region}`}</td>
+                      <td className="tour-listing">
+                        <form action={show.offers[0].url}>
+                          <button className="access-button-small">Tickets & More</button>
+                        </form>
+                      </td>
+                    </tr>
+                  )) : <h6 className="header-text no-margin">No upcoming shows from this artist.</h6>}
                 </table>
               </table>
             </div>
@@ -152,7 +167,7 @@ class SingleArtist extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ currentUser, userSetlists, userFavorites, currentArtist, userStats, artistTopAlbums }, ownProps) => {
+const mapState = ({ currentUser, userSetlists, userFavorites, currentArtist, userStats, artistTopAlbums, tourDates }, ownProps) => {
   const artistId = ownProps.match.params.artistId
   return {
     currentUser,
@@ -161,7 +176,8 @@ const mapState = ({ currentUser, userSetlists, userFavorites, currentArtist, use
     artistId,
     currentArtist,
     userStats,
-    artistTopAlbums
+    artistTopAlbums,
+    tourDates
   }
 }
 

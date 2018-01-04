@@ -151,9 +151,12 @@ class UserPage extends Component {
 
         for(var i = 0; i<setlistArr.length; i++){
           if(returnObj[setlistArr[i].venueName]){
-            returnObj[setlistArr[i].venueName] = returnObj[setlistArr[i].venueName] + 1
+            returnObj[setlistArr[i].venueName].count ++
           } else {
-            returnObj[setlistArr[i].venueName] = 1
+            returnObj[setlistArr[i].venueName] = {
+              count: 1,
+              venueId: setlistArr[i].venueId
+            }
           }
         }
 
@@ -163,7 +166,8 @@ class UserPage extends Component {
           returnArr.push(
             {
               venue: key,
-              seen: returnObj[key]
+              seen: returnObj[key].count,
+              venueId: returnObj[key].venueId
             }
           )
         }
@@ -298,7 +302,7 @@ class UserPage extends Component {
                 <ul>
                 {userSetlists.length && this.venueCountArr(userSetlists).map(result => (
                   <li className="top-artist-li">
-                    <Link to="#" className="top-artist-link">
+                    <Link to={`/singlevenue/${currentUser.id}/${result.venueId}`} className="top-artist-link">
                       {result.venue} ({result.seen})
                     </Link>
                   </li>

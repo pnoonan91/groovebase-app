@@ -19,6 +19,7 @@ import UserShows from './userShows.jsx'
 import Artists from './Artists.jsx'
 import Venues from './Venues.jsx'
 import SingleArtist from './singleArtist.jsx'
+import SingleVenue from './singleVenue.jsx'
 
 export default class Main extends Component {
   componentDidMount() {
@@ -49,6 +50,7 @@ export default class Main extends Component {
               <Route exact path="/user/artists/:userId" component={Artists} />
               <Route exact path="/user/venues/:userId" component={Venues} />
               <Route exact path="/singleartist/:userId/:artistId" component={SingleArtist} />
+              <Route exact path="/singlevenue/:userId/:venueId" component={SingleVenue} />
             </Switch>
           <Footer />
         </div>

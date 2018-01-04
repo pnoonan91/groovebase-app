@@ -128,4 +128,14 @@ request(options, function (error, response, body) {
 
 })
 
+router.get('/singlevenue/:venueId', function(req, res, next) {
+  UserShows.findOne({
+    where: {
+      venueId: req.params.venueId
+    }
+  })
+  .then(venue => res.json(venue))
+  .catch(next)
+})
+
 module.exports = router

@@ -622,3 +622,10 @@ a{
   width: 600px;
   margin-top: 1rem;
 }
+
+#upcoming-tour-dates{
+  background-color: white;
+  border: 1px solid #d59bff;
+  padding: 1rem;
+  width: 600px;
+}

@@ -103,11 +103,15 @@ class SingleArtist extends Component {
                   </Link>
                 </td>
                 <td className="table-listing-item user-page-listing">
-                  <p className="no-margin">{setlist.eventDate}</p>
+                  <Link className="black-text" to={`/setlist/${setlist.setlistId}`}>
+                    <p className="no-margin">{setlist.eventDate}</p>
+                  </Link>
                 </td>
                 <td className="table-listing-item user-page-listing">
-                  <p className="no-margin">{setlist.venueName}</p>
-                  <p className="no-margin">{`${setlist.city}, ${setlist.stateCode}`}</p>
+                  <Link className="black-text" to={`/singlevenue/${currentUser.id}/${setlist.venueId}`}>
+                    <p className="no-margin">{setlist.venueName}</p>
+                    <p className="no-margin">{`${setlist.city}, ${setlist.stateCode}`}</p>
+                  </Link>
                 </td>
                 <td className="table-listing" key={setlist.id}>
                   <img src={setlist.isFavorite} className="user-page-favorite-icon" id={setlist.id} onClick={this.addFavorite}/>
@@ -116,6 +120,14 @@ class SingleArtist extends Component {
               ))}
               </table>
             </div>
+            <h4 className="purple-text header-text">Upcoming Tour Dates</h4>
+              <table id="upcoming-tour-dates">
+                <table>
+                  <tr>
+                    Testing
+                  </tr>
+                </table>
+              </table>
             </div>
             <div>
             <h4 className="purple-text header-text onerem-padding-left">Top Albums from {currentArtist.artistName && currentArtist.artistName}</h4>

@@ -222,7 +222,7 @@ class Artists extends Component {
           {userSetlists.length && this.artistCountArr(userSetlists).map(artist =>
             <table className="table-results-artist-page all-artist-table">
               <tr className="table-listing-artist-page" key={artist.artist} onClick={this.displayArtistStats}>
-                <Link className="purple-text underline-hover" to={`/singleartist/${currentUser.id}/${artist.artistMbid}`}><h3 id={`${this.removeSpaces(artist.artist)}`} className="purple-text artist-listing no-margin">{`${artist.artist} (${artist.seen})`}</h3></Link>
+                <span><Link className="purple-text underline-hover" to={`/singleartist/${currentUser.id}/${artist.artistMbid}`}><h3 id={`${this.removeSpaces(artist.artist)}`} className="purple-text artist-listing no-margin">{`${artist.artist} (${artist.seen})`}</h3></Link></span>
               </tr>
               <tr id={`${this.removeSpaces(artist.artist)}-details`} className="hide-artist-details artist-details">
                 <div id="artist-details-container">

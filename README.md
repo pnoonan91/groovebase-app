@@ -13,6 +13,7 @@ grooveBase is a full-stack single page application. I used various front-end and
 * HTML5/CSS
 
 ### Back-End
+* Node.js
 * Express
 * PostgreSQL
 
